@@ -20,6 +20,8 @@ import scoremanager.main.StudentListAction;
 import scoremanager.main.StudentUpdateAction;
 import scoremanager.main.StudentUpdateExecuteAction;
 import scoremanager.main.SubjectListAction;
+import scoremanager.main.SubjectCreateAction;
+import scoremanager.main.SubjectCreateExecuteAction;
 
 @WebServlet("*.action")
 public class FrontController extends HttpServlet {
@@ -39,6 +41,8 @@ public class FrontController extends HttpServlet {
         actionMap.put("/StudentUpdate.action", new StudentUpdateAction());
         actionMap.put("/StudentUpdateExecute.action", new StudentUpdateExecuteAction());
         actionMap.put("/SubjectList.action", new SubjectListAction());
+        actionMap.put("/SubjectCreate.action", new SubjectCreateAction());
+        actionMap.put("/SubjectCreateExecute.action", new SubjectCreateExecuteAction());
     }
 
 

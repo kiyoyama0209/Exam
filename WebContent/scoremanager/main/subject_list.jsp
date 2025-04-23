@@ -14,7 +14,7 @@
         <div>
         </div>
         <div>
-          <a href="${pageContext.request.contextPath}/SubjectInsert.action">新規登録</a>
+          <a href="${pageContext.request.contextPath}/SubjectCreate.action">新規登録</a>
         </div>
       </div>
 
@@ -30,6 +30,7 @@
                 <tr>
                   <th>科目コード</th>
                   <th>科目名</th>
+                  <th></th>
                   <th class="text-center"></th>
                 </tr>
               </thead>
@@ -40,7 +41,10 @@
                     <td>${s.name}</td>
                     <td class="text-center">
                       <a href="${pageContext.request.contextPath}/SubjectUpdate.action?code=${s.cd}">変更</a>
-                      <a href="${pageContext.request.contextPath}/SubjectDelete.action?code=${s.cd}">削除</a>
+
+                    </td>
+                    <td class="text-center">
+                    	<a href="${pageContext.request.contextPath}/SubjectDelete.action?code=${s.cd}">削除</a>
                     </td>
                   </tr>
                 </c:forEach>

@@ -19,6 +19,9 @@ import scoremanager.main.StudentCreateExecuteAction;
 import scoremanager.main.StudentListAction;
 import scoremanager.main.StudentUpdateAction;
 import scoremanager.main.StudentUpdateExecuteAction;
+import scoremanager.main.SubjectListAction;
+import scoremanager.main.SubjectUpdateAction;
+import scoremanager.main.SubjectUpdateExecuteAction;
 
 @WebServlet("*.action")
 public class FrontController extends HttpServlet {
@@ -35,8 +38,12 @@ public class FrontController extends HttpServlet {
         actionMap.put("/StudentCreateExecute.action", new StudentCreateExecuteAction());
         actionMap.put("/Logout.action", new LogoutAction());
         actionMap.put("/Menu.action",          new MenuAction());
+        actionMap.put("/SubjectUpdate.action",        new SubjectUpdateAction());
+        actionMap.put("/SubjectUpdateExecute.action", new SubjectUpdateExecuteAction());
         actionMap.put("/StudentUpdate.action", new StudentUpdateAction());
-        actionMap.put("/StudentUpdateExecute.action", new StudentUpdateExecuteAction());}
+        actionMap.put("/StudentUpdateExecute.action", new StudentUpdateExecuteAction());
+        actionMap.put("/SubjectList.action", new SubjectListAction());
+    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

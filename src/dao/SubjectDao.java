@@ -16,14 +16,14 @@ public class SubjectDao extends Dao {
         List<Subject> list = new ArrayList<>();
 
         try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM SUBJECT WHERE SCHOOL_CD = ? ORDER BY CODE";
+            String sql = "SELECT * FROM SUBJECT WHERE SCHOOL_CD = ? ORDER BY CD";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, schoolCd);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Subject s = new Subject();
-                s.setCode(rs.getString("CODE"));
+                s.setCode(rs.getString("CD"));
                 s.setName(rs.getString("NAME"));
                 s.setSchoolCd(rs.getString("SCHOOL_CD"));
                 list.add(s);
@@ -34,18 +34,18 @@ public class SubjectDao extends Dao {
     }
 
     // 科目詳細取得
-    public Subject get(String code) throws Exception {
+    public Subject get(String cd) throws Exception {
         Subject s = null;
 
         try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM SUBJECT WHERE CODE = ?";
+            String sql = "SELECT * FROM SUBJECT WHERE CD = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, code);
+            ps.setString(1, cd);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 s = new Subject();
-                s.setCode(rs.getString("CODE"));
+                s.setCode(rs.getString("CD"));
                 s.setName(rs.getString("NAME"));
                 s.setSchoolCd(rs.getString("SCHOOL_CD"));
             }
@@ -59,9 +59,9 @@ public class SubjectDao extends Dao {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "INSERT INTO SUBJECT (CODE, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO SUBJECT (CD, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, subject.getCode());
+            ps.setString(1, subject.getCd());
             ps.setString(2, subject.getName());
             ps.setString(3, subject.getSchoolCd());
 
@@ -73,13 +73,13 @@ public class SubjectDao extends Dao {
     }
 
     // 科目削除
-    public boolean delete(String code) throws Exception {
+    public boolean delete(String cd) throws Exception {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "DELETE FROM SUBJECT WHERE CODE = ?";
+            String sql = "DELETE FROM SUBJECT WHERE CD = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, code);
+            ps.setString(1, cd);
             int count = ps.executeUpdate();
             result = count > 0;
         }
@@ -91,10 +91,10 @@ public class SubjectDao extends Dao {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "UPDATE SUBJECT SET NAME = ? WHERE CODE = ?";
+            String sql = "UPDATE SUBJECT SET NAME = ? WHERE CD = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, subject.getName());
-            ps.setString(2, subject.getCode());
+            ps.setString(2, subject.getCd());
 
             int count = ps.executeUpdate();
             result = count > 0;

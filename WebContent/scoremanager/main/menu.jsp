@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow" style="height: 10rem; background-color: #E4FF8D;">
-          <a href="SubjectList.action">科目管理</a>
+          <a href="${pageContext.request.contextPath}/SubjectList.action">科目管理</a>
         </div>
 
         <div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow" style="height: 10rem; background-color: #FF99FF
@@ -38,3 +38,4 @@
 cc
 aaaaa
 bbbbb
+dddd

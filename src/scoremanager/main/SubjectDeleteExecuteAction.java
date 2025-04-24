@@ -37,6 +37,6 @@ public class SubjectDeleteExecuteAction extends Action {
         }
 
         // 完了画面へ
-        request.getRequestDispatcher("scoremanager/subject/subject_delete_done.jsp").forward(request, response);
+        request.getRequestDispatcher("scoremanager/main/subject_delete_done.jsp").forward(request, response);
     }
 }

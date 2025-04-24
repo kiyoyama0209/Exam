@@ -29,6 +29,6 @@ public class SubjectDeleteExecuteAction extends Action {
             request.setAttribute("message", "科目の削除に失敗しました。");
         }
 
-        request.getRequestDispatcher("scoremanager/subject/subject_delete_done.jsp").forward(request, response);
+        request.getRequestDispatcher("scoremanager/main/subject_delete_done.jsp").forward(request, response);
     }
 }

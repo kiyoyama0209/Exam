@@ -26,17 +26,17 @@ public class SubjectCreateExecuteAction extends Action {
         String name = request.getParameter("name");
 
 
-        // ⑤登録処理
+        // ③登録処理
         Subject subject = new Subject();
         subject.setCode(code);
         subject.setName(name);
         subject.setSchoolCd(teacher.getSchoolCd());
 
-        // ⑥保存
+        // ④保存
         SubjectDao dao = new SubjectDao();
         dao.save(subject);
 
-        // ⑦完了画面へ遷移
+        // ⑤完了画面へ遷移
         request.setAttribute("message", "科目の登録が完了しました。");
         request.getRequestDispatcher("/scoremanager/main/subject_create_done.jsp")
         .forward(request, response);

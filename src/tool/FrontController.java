@@ -36,7 +36,8 @@ public class FrontController extends HttpServlet {
         actionMap.put("/Logout.action", new LogoutAction());
         actionMap.put("/Menu.action",          new MenuAction());
         actionMap.put("/StudentUpdate.action", new StudentUpdateAction());
-        actionMap.put("/StudentUpdateExecute.action", new StudentUpdateExecuteAction());}
+        actionMap.put("/StudentUpdateExecute.action", new StudentUpdateExecuteAction());
+        }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

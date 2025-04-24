@@ -8,10 +8,9 @@ import java.util.List;
 
 import bean.Subject;
 
-
 public class SubjectDao extends Dao {
 
-    // 科目一覧取得（学校コードで絞り込み）
+    // 科目一覧取得
     public List<Subject> filter(String schoolCd) throws Exception {
         List<Subject> list = new ArrayList<>();
 
@@ -29,20 +28,17 @@ public class SubjectDao extends Dao {
                 list.add(s);
             }
         }
-
         return list;
     }
 
     // 科目詳細取得
     public Subject get(String code) throws Exception {
         Subject s = null;
-
         try (Connection con = getConnection()) {
             String sql = "SELECT * FROM SUBJECT WHERE CODE = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, code);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 s = new Subject();
                 s.setCode(rs.getString("CODE"));
@@ -50,57 +46,39 @@ public class SubjectDao extends Dao {
                 s.setSchoolCd(rs.getString("SCHOOL_CD"));
             }
         }
-
         return s;
     }
 
     // 科目登録
     public boolean save(Subject subject) throws Exception {
-        boolean result = false;
-
         try (Connection con = getConnection()) {
             String sql = "INSERT INTO SUBJECT (CODE, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, subject.getCode());
             ps.setString(2, subject.getName());
             ps.setString(3, subject.getSchoolCd());
-
-            int count = ps.executeUpdate();
-            result = count > 0;
+            return ps.executeUpdate() > 0;
         }
-
-        return result;
     }
 
-    // 科目削除
+    // 科目削除（物理削除）
     public boolean delete(String code) throws Exception {
-        boolean result = false;
-
         try (Connection con = getConnection()) {
             String sql = "DELETE FROM SUBJECT WHERE CODE = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, code);
-            int count = ps.executeUpdate();
-            result = count > 0;
+            return ps.executeUpdate() > 0;
         }
-
-        return result;
     }
- // 科目編集（名前の更新）
-    public boolean update(Subject subject) throws Exception {
-        boolean result = false;
 
+    // 科目編集
+    public boolean update(Subject subject) throws Exception {
         try (Connection con = getConnection()) {
             String sql = "UPDATE SUBJECT SET NAME = ? WHERE CODE = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, subject.getName());
             ps.setString(2, subject.getCode());
-
-            int count = ps.executeUpdate();
-            result = count > 0;
+            return ps.executeUpdate() > 0;
         }
-
-        return result;
     }
-
 }

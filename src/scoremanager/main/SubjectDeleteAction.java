@@ -41,6 +41,6 @@ public class SubjectDeleteAction extends Action {
 
         // JSPに科目情報を渡す
         request.setAttribute("subject", subject);
-        request.getRequestDispatcher("scoremanager/subject/subject_delete.jsp").forward(request, response);
+        request.getRequestDispatcher("scoremanager/main/subject_delete.jsp").forward(request, response);
     }
 }

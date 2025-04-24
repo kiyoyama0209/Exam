@@ -24,6 +24,8 @@ import scoremanager.main.SubjectCreateExecuteAction;
 import scoremanager.main.SubjectDeleteAction;
 import scoremanager.main.SubjectDeleteExecuteAction;
 import scoremanager.main.SubjectListAction;
+import scoremanager.main.SubjectUpdateAction;
+import scoremanager.main.SubjectUpdateExecuteAction;
 
 @WebServlet("*.action")
 public class FrontController extends HttpServlet {
@@ -47,6 +49,8 @@ public class FrontController extends HttpServlet {
         actionMap.put("/SubjectCreateExecute.action", new SubjectCreateExecuteAction());
         actionMap.put("/SubjectDelete.action", new SubjectDeleteAction());
         actionMap.put("/SubjectDeleteExecute.action", new SubjectDeleteExecuteAction());
+        actionMap.put("/SubjectUpdate.action", new SubjectUpdateAction());
+        actionMap.put("/SubjectUpdateExecute.action", new SubjectUpdateExecuteAction());
 
 
     }

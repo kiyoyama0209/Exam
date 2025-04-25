@@ -35,18 +35,4 @@ public class TestDao extends Dao {
         }
         return list;
     }
-
-    public void deleteTests(List<Test> tests) throws Exception {
-        String sql = "DELETE FROM TEST WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND NO = ? AND SCHOOL_CD = ?";
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            for (Test t : tests) {
-                ps.setString(1, t.getStudentNo());
-                ps.setString(2, t.getSubjectCd());
-                ps.setInt(3, t.getNo());
-                ps.setString(4, t.getSchoolCd());
-                ps.executeUpdate();
-            }
-        }
-    }
 }

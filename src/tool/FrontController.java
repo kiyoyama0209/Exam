@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import scoremanager.LoginAction;
 import scoremanager.LoginExecuteAction;
 import scoremanager.LogoutAction;
+import scoremanager.main.ClassNumCreateAction;
+import scoremanager.main.ClassNumCreateExecuteAction;
+import scoremanager.main.ClassNumListAction;
 import scoremanager.main.MenuAction;
 import scoremanager.main.StudentCreateAction;
 import scoremanager.main.StudentCreateExecuteAction;
@@ -51,8 +54,9 @@ public class FrontController extends HttpServlet {
         actionMap.put("/SubjectDeleteExecute.action", new SubjectDeleteExecuteAction());
         actionMap.put("/SubjectUpdate.action", new SubjectUpdateAction());
         actionMap.put("/SubjectUpdateExecute.action", new SubjectUpdateExecuteAction());
-
-
+        actionMap.put("/ClassNumList.action", new ClassNumListAction());
+        actionMap.put("/ClassNumCreate.action", new ClassNumCreateAction());
+        actionMap.put("/ClassNumCreateExecute.action", new ClassNumCreateExecuteAction());
     }
 
 

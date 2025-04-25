@@ -19,7 +19,7 @@
         </div>
       </div>
 <!-- 絞り込みフォーム -->
-+ <form action="${pageContext.request.contextPath}/StudentList.action" method="post">
+<form action="${pageContext.request.contextPath}/StudentList.action" method="post">
   <div class="border rounded p-3 mx-3 mb-3">
     <div class="row align-items-center gy-2 gx-3">
 

@@ -58,4 +58,39 @@ public class ClassNumDao extends Dao {
         // TODO: DB処理
         return false;
     }
+
+    // ★ ここから追加 ★
+    // 学校コード一覧を取得（重複なし）
+    public List<String> getSchoolCdList() throws Exception {
+        List<String> list = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT SCHOOL_CD FROM CLASS_NUM ORDER BY SCHOOL_CD";
+
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            list.add(rs.getString("SCHOOL_CD"));
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return list;
+    }
+    public void insert(ClassNum classNum) throws Exception {
+        String sql = "INSERT INTO CLASS_NUM (SCHOOL_CD, CLASS_NUM) VALUES (?, ?)";
+
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, classNum.getSchoolCd());
+        stmt.setString(2, classNum.getClassNum());
+        stmt.executeUpdate();
+
+        stmt.close();
+        conn.close();
+    }
+
 }

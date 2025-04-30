@@ -15,7 +15,7 @@
         <div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow" style="height: 10rem; background-color: #A7F1FF;">
           <div class="text-center">
             <div>成績管理</div>
-            <div class="mt-3">
+              <div class="mt-3">
               <a href="TestRegist.action">成績登録</a>
             </div>
             <div class="mt-3">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow" style="height: 10rem; background-color: #FF99FF
-        ;">w
+        ;">
           <a href="${pageContext.request.contextPath}/ClassNumList.action">クラス管理</a>
         </div>
       </div>

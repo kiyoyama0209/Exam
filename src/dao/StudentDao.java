@@ -32,6 +32,21 @@ public class StudentDao extends Dao {
         return st;
     }
 
+    public int updateClassNum(String oldClassNum,
+            String newClassNum,
+            String schoolCd) throws Exception {
+
+		String sql = "UPDATE STUDENT SET CLASS_NUM = ? " +
+		   "WHERE SCHOOL_CD = ? AND CLASS_NUM = ?";
+		try (Connection con = getConnection();
+		PreparedStatement ps = con.prepareStatement(sql)) {
+		ps.setString(1, newClassNum);
+		ps.setString(2, schoolCd);
+		ps.setString(3, oldClassNum);
+		return ps.executeUpdate();
+		}
+	}
+
     public List<Student> filterAll(String schoolCd) throws Exception {
         List<Student> list = new ArrayList<>();
         try (Connection con = getConnection()) {

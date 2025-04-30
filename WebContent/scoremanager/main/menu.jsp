@@ -19,7 +19,7 @@
               <a href="TestRegist.action">成績登録</a>
             </div>
             <div class="mt-3">
-              <a href="TestList.action">成績参照</a>
+              <a href="${pageContext.request.contextPath}/TestList.action">成績参照</a>
             </div>
           </div>
         </div>

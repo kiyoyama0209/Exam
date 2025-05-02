@@ -16,7 +16,7 @@
           <div class="text-center">
             <div>成績管理</div>
               <div class="mt-3">
-              <a href="TestRegist.action">成績登録</a>
+              <a href="${pageContext.request.contextPath}/TestRegist.action">成績登録</a>
             </div>
             <div class="mt-3">
               <a href="${pageContext.request.contextPath}/TestList.action">成績参照</a>

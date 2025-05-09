@@ -32,24 +32,24 @@
 
 		      <!-- クラス -->
 		      <div class="col-12 col-sm-2">
-		        <label for="f2" class="col-form-label mb-1 fw-bold">クラス</label>
-		        <select name="f2" id="f2"
+		        <label for="classNum" class="col-form-label mb-1 fw-bold">クラス</label>
+		        <select name="classNum" id="classNum"
 		                class="form-select w-100"
 		                style="min-width:100px;">
 		          <option value="">--</option>
 		          <c:forEach var="c" items="${classNums}">
-		            <option value="${c.classNum}" <c:if test="${param.f2 == c.classNum}">selected</c:if>>${c.classNum}</option>
+		            <option value="${c.classNum}" <c:if test="${param.classNum == c.classNum}">selected</c:if>>${c.classNum}</option>
 		          </c:forEach>
 		        </select>
 		      </div>
 
 		      <!-- 科目 -->
 				<div class="col-12 col-lg-3">
-				  <label for="subject" class="form-label fw-bold">科目</label>
-				  <select name="subject" id="subject" class="form-select">
+				  <label for="subjectCd" class="form-label fw-bold">科目</label>
+				  <select name="subjectCd" id="subjectCd" class="form-select">
 				    <option value="">------</option>
 				    <c:forEach var="s" items="${subjects}">
-				      <option value="${s.cd}" <c:if test="${param.subject == s.cd}">selected</c:if>>${s.name}</option>
+				      <option value="${s.cd}" <c:if test="${param.subjectCd == s.cd}">selected</c:if>>${s.name}</option>
 				    </c:forEach>
 				  </select>
 				</div>

@@ -32,6 +32,7 @@ import scoremanager.main.SubjectListAction;
 import scoremanager.main.SubjectUpdateAction;
 import scoremanager.main.SubjectUpdateExecuteAction;
 import scoremanager.main.TestListAction;
+import scoremanager.main.TestListStudentExecuteAction;
 import scoremanager.main.TestListSubjectExecuteAction;
 import scoremanager.main.TestRegistAction;
 import scoremanager.main.TestRegistExecuteAction;
@@ -69,6 +70,7 @@ public class FrontController extends HttpServlet {
         actionMap.put("/TestRegist.action", new TestRegistAction());
         actionMap.put("/TestRegistExecute.action", new TestRegistExecuteAction());
         actionMap.put("/TestListSubjectExecute.action", new TestListSubjectExecuteAction());
+        actionMap.put("/TestListStudentExecute.action", new TestListStudentExecuteAction());
     }
 
 

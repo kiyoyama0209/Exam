@@ -5,71 +5,70 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import bean.School;
 import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
-
-    // SQLのベース（必要に応じて修正）
-    private final String baseSql = "SELECT * FROM test_list_subject";
-
-    // ResultSet → List<TestListSubject> に変換
-    public List<TestListSubject> postFilter(ResultSet rs) throws SQLException {
+	private String baseSql = "SELECT " +
+	        "s.ent_year, " +
+	        "s.class_num, " +
+	        "t.student_no, " +
+	        "s.name AS student_name, " +
+	        "t.point " +
+	        "FROM " +
+	        "student s " +
+	        "JOIN " +
+	        "test t ON s.no = t.student_no " +
+	        "WHERE " +
+	        "s.ent_year = ? " +
+	        "AND s.class_num = ? " +
+	        "AND t.subject_cd = ? " +
+	        "AND s.school_cd = ?";
+    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) {
         List<TestListSubject> list = new ArrayList<>();
 
-        while (rs.next()) {
-            TestListSubject tls = new TestListSubject();
-
-            tls.setEntYear(rs.getInt("ent_year"));
-            tls.setStudentNo(rs.getString("student_no"));
-            tls.setStudentName(rs.getString("student_name"));
-            tls.setClassNum(rs.getString("class_num"));
-
-            // Subject（教科）
-            Subject subject = new Subject();
-            subject.setSchoolCd(rs.getString("subject_cd"));
-            subject.setName(rs.getString("subject_name")); // このカラムが無ければ削除してOK
-            tls.setSubject(subject);
-
-            // 得点（point1〜point5）マップ化
-            Map<Integer, Integer> points = new HashMap<>();
-            for (int i = 1; i <= 5; i++) {
-                try {
-                    points.put(i, rs.getInt("point" + i));
-                } catch (SQLException e) {
-                    // point列がない場合はスキップ
-                }
-            }
-            tls.setPoints(points);
-
-            list.add(tls);
-        }
-
-        return list;
-    }
-
-    // 条件付きフィルタ
-    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) throws Exception {
-        List<TestListSubject> list;
-
-        try (Connection conn = getConnection()) {
-            String sql = baseSql + " WHERE ent_year = ? AND class_num = ? AND subject_cd = ? AND school_cd = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection connection = getConnection()) {
+            String sql = baseSql;
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, entYear);
                 stmt.setString(2, classNum);
-                stmt.setString(3, subject.getCd());
+                stmt.setString(3, subject.getCode());
                 stmt.setString(4, school.getSchoolCd());
 
                 try (ResultSet rs = stmt.executeQuery()) {
                     list = postFilter(rs);
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return list;
+    }
+
+    private List<TestListSubject> postFilter(ResultSet rs) throws SQLException {
+        List<TestListSubject> list = new ArrayList<>();
+
+        while (rs.next()) {
+            TestListSubject test = new TestListSubject();
+            test.setEntYear(rs.getInt("ent_year"));
+            test.setStudentNo(rs.getString("student_no"));
+            test.setStudentName(rs.getString("student_name"));
+            test.setClassNum(rs.getString("class_num"));
+
+            // 1つのpointを取得して設定
+            int point = rs.getInt("point");
+            if (!rs.wasNull()) {
+
+                test.setPoint(point);
+            }
+
+            list.add(test);
+        }
+
 
         return list;
     }

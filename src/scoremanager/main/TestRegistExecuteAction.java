@@ -117,8 +117,8 @@ public class TestRegistExecuteAction extends Action {
         }
 
         /* 完了メッセージ */
-        String msg = "登録完了 (成功：" + success + " 件／エラー：" + fail + " 件)";
-        req.setAttribute("message", msg);
+        req.getRequestDispatcher("/scoremanager/main/test_regist_done.jsp")
+        .forward(req, res);
 
         /* 検索モードと同じデータを再表示 */
         StudentDao sDao = new StudentDao();

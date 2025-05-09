@@ -66,7 +66,7 @@
       <hr class="mx-3 my-0"/>
 
       <!-- 学生番号で検索 -->
-		<form action="${pageContext.request.contextPath}/TestListByStudentId.action" method="post">
+		<form action="${pageContext.request.contextPath}/TestListStudentExecute.action" method="post">
 		  <div class="border rounded p-3 mx-3 mt-0">
 		    <div class="row align-items-end gy-2 gx-3">
 

@@ -61,14 +61,33 @@ public class SubjectDao extends Dao {
         }
     }
 
-    // 科目削除（物理削除）
+    // 科目削除（TESTも連動削除）
     public boolean delete(String cd) throws Exception {
+        boolean result = false;
+
         try (Connection con = getConnection()) {
-            String sql = "DELETE FROM SUBJECT WHERE CD = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, cd);
-            return ps.executeUpdate() > 0;
+            con.setAutoCommit(false); // トランザクション開始
+
+            // ① TESTテーブルから削除
+            String sql1 = "DELETE FROM TEST WHERE SUBJECT_CD = ?";
+            PreparedStatement ps1 = con.prepareStatement(sql1);
+            ps1.setString(1, cd);
+            ps1.executeUpdate();
+
+            // ② SUBJECTテーブルから削除
+            String sql2 = "DELETE FROM SUBJECT WHERE CD = ?";
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            ps2.setString(1, cd);
+            int count = ps2.executeUpdate();
+
+            con.commit(); // コミット
+            result = count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
+
+        return result;
     }
 
     // 科目編集

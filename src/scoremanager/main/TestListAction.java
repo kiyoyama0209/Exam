@@ -64,6 +64,7 @@ public class TestListAction extends Action {
 
 
         // 表示用JSPにフォワード
+
         request.getRequestDispatcher("scoremanager/main/test_list.jsp").forward(request, response);
     }
 }

@@ -1,6 +1,7 @@
 package scoremanager.main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ClassNum;
 import bean.School;
 import bean.Subject;
 import bean.Teacher;
 import bean.TestListSubject;
+import dao.ClassNumDao;
+import dao.SubjectDao;
 import dao.TestListSubjectDao;
 import tool.Action;
 
@@ -24,6 +28,37 @@ public class TestListSubjectExecuteAction extends Action {
             Teacher teacher = (Teacher) session.getAttribute("user");
 
             String schoolCd = teacher.getSchoolCd();
+
+         // フィルタパラメータ
+            String entYearStr = req.getParameter("f1");
+
+            Integer ent_Year = null;
+
+            // 入学年度
+            if (entYearStr != null && !entYearStr.isEmpty()) {
+                try {
+                    ent_Year = Integer.parseInt(entYearStr);
+                } catch (NumberFormatException e) {
+                    ent_Year = null;
+                }
+            }
+         // 年度プルダウン（今年±10年）
+            List<Integer> years = new ArrayList<>();
+            int currentYear = java.time.Year.now().getValue();
+            for (int i = -10; i <= 1; i++) {
+                years.add(currentYear + i);
+            }
+            req.setAttribute("years", years);
+
+            // クラス番号プルダウン
+            ClassNumDao classNumDao = new ClassNumDao();
+            List<ClassNum> classNums = classNumDao.filter(schoolCd);
+            req.setAttribute("classNums", classNums);
+
+         // ★ 科目プルダウン
+            SubjectDao subjectDao = new SubjectDao();
+            List<Subject> subjects = subjectDao.filter(schoolCd); // schoolCdでフィルタ
+            req.setAttribute("subjects", subjects);
 
             // パラメータの取得
             int entYear = Integer.parseInt(req.getParameter("entYear"));
@@ -57,5 +92,7 @@ public class TestListSubjectExecuteAction extends Action {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
             dispatcher.forward(req, res);
         }
+
     }
+
 }

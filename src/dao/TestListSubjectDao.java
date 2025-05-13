@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import bean.School;
 import bean.Subject;
 import bean.TestListSubject;
+
 
 public class TestListSubjectDao extends Dao {
 	private String baseSql = "SELECT " +
@@ -17,6 +20,7 @@ public class TestListSubjectDao extends Dao {
 	        "s.class_num, " +
 	        "t.student_no, " +
 	        "s.name AS student_name, " +
+	        "t.no, " +
 	        "t.point " +
 	        "FROM " +
 	        "student s " +
@@ -26,7 +30,8 @@ public class TestListSubjectDao extends Dao {
 	        "s.ent_year = ? " +
 	        "AND s.class_num = ? " +
 	        "AND t.subject_cd = ? " +
-	        "AND s.school_cd = ?";
+	        "AND s.school_cd = ? " +
+    		"ORDER BY t.student_no, t.no";
     public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) {
         List<TestListSubject> list = new ArrayList<>();
 
@@ -50,26 +55,35 @@ public class TestListSubjectDao extends Dao {
     }
 
     private List<TestListSubject> postFilter(ResultSet rs) throws SQLException {
-        List<TestListSubject> list = new ArrayList<>();
+    	 Map<String, TestListSubject> map = new LinkedHashMap<>();
 
-        while (rs.next()) {
-            TestListSubject test = new TestListSubject();
-            test.setEntYear(rs.getInt("ent_year"));
-            test.setStudentNo(rs.getString("student_no"));
-            test.setStudentName(rs.getString("student_name"));
-            test.setClassNum(rs.getString("class_num"));
+    	    while (rs.next()) {
+    	        String studentNo = rs.getString("student_no");
+    	        int no = rs.getInt("no");
+    	        int point = rs.getInt("point");
 
-            // 1つのpointを取得して設定
-            int point = rs.getInt("point");
-            if (!rs.wasNull()) {
+    	        // studentNoがすでに存在する場合はそのTestListSubjectを利用
+    	        TestListSubject test = map.get(studentNo);
+    	        if (test == null) {
+    	            // 新しくTestListSubjectを作成
+    	            test = new TestListSubject();
+    	            test.setEntYear(rs.getInt("ent_year"));
+    	            test.setClassNum(rs.getString("class_num"));
+    	            test.setStudentNo(studentNo);
+    	            test.setStudentName(rs.getString("student_name"));
+    	            map.put(studentNo, test);
+    	        }
 
-                test.setPoint(point);
-            }
+    	        // 得点を回数ごとに保存
+    	        test.setPointForNo(no, point);
 
-            list.add(test);
-        }
+    	    }
+    	    for (TestListSubject test : map.values()) {
+    	        Map<Integer, Integer> points = test.getPointsByNo();
+    	        test.setPoint1(points.get(1)); // 1回目
+    	        test.setPoint2(points.get(2)); // 2回目
+    	    }
 
-
-        return list;
+    	    return new ArrayList<>(map.values());
     }
 }

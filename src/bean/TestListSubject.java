@@ -1,11 +1,16 @@
 package bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestListSubject {
     private int entYear;
     private String studentNo;
     private String studentName;
     private String classNum;
-    private int points;
+    private Map<Integer, Integer> pointsByNo = new HashMap<>();
+    private Integer point1;
+    private Integer point2;
 
     // 年度
     public int getEntYear() {
@@ -45,13 +50,27 @@ public class TestListSubject {
 
 
 	 // 得点を取得
-	    public int getPoint() {
-	    	return points;
-	    }
+    public Map<Integer, Integer> getPointsByNo() {
+        return pointsByNo;
+    }
 
-	    // 得点を設定
-	    public void setPoint(int points) {
-	    	this.points = points;
+    public void setPointForNo(int no, int point) {
+        this.pointsByNo.put(no, point);
+    }
 
-	    }
-	}
+    public Integer getPoint1() {
+        return point1;
+    }
+
+    public void setPoint1(Integer point1) {
+        this.point1 = point1;
+    }
+
+    public Integer getPoint2() {
+        return point2;
+    }
+
+    public void setPoint2(Integer point2) {
+        this.point2 = point2;
+    }
+}

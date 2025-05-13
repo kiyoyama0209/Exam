@@ -60,6 +60,8 @@ public class TestListSubjectExecuteAction extends Action {
             List<Subject> subjects = subjectDao.filter(schoolCd); // schoolCdでフィルタ
             req.setAttribute("subjects", subjects);
 
+
+
             // パラメータの取得
             int entYear = Integer.parseInt(req.getParameter("entYear"));
             String classNum = req.getParameter("classNum");

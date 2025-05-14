@@ -20,43 +20,47 @@
       </div>
 <!-- 絞り込みフォーム -->
 <form action="${pageContext.request.contextPath}/StudentList.action" method="post">
-  <div class="border rounded p-3 mx-3 mb-3">
-    <div class="row align-items-center gy-2 gx-3">
+  <div class="border rounded p-3 shadow-sm">
+          <div class="row gx-3 gy-2 align-items-end">
 
-      <!-- 入学年度 -->
-      <div class="col-12 col-sm-4"><!-- ★ 幅を広げた -->
-        <label for="f1" class="col-form-label mb-1 fw-bold">入学年度</label>
-        <select name="f1" id="f1"
-                class="form-select w-100"
-                style="min-width:200px;">   <!-- ★ 200px キープ -->
-          <option value="">--</option>
-          <c:forEach var="y" items="${years}">
-            <option value="${y}" <c:if test="${param.f1 == y}">selected</c:if>>${y}</option>
-          </c:forEach>
-        </select>
-      </div>
+  <!-- 入学年度 -->
+  <div class="col-12 col-lg-4">
+    <label for="f1" class="form-label fw-bold">入学年度</label>
+    <select name="f1" id="f1"
+            class="form-select w-100"
+            style="min-width: 200px;">
+      <option value="">------</option>
+      <c:forEach var="y" items="${years}">
+        <option value="${y}" <c:if test="${param.f1 == y}">selected</c:if>>${y}</option>
+      </c:forEach>
+    </select>
+  </div>
 
-      <!-- クラス -->
-      <div class="col-12 col-sm-4">
-        <label for="f2" class="col-form-label mb-1 fw-bold">クラス</label>
-        <select name="f2" id="f2"
-                class="form-select w-100"
-                style="min-width:200px;">
-          <option value="">--</option>
-          <c:forEach var="c" items="${classNums}">
-            <option value="${c.classNum}" <c:if test="${param.f2 == c.classNum}">selected</c:if>>${c.classNum}</option>
-          </c:forEach>
-        </select>
-      </div>
+  <!-- クラス -->
+  <div class="col-12 col-lg-4">
+    <label for="f2" class="form-label fw-bold">クラス</label>
+    <select name="f2" id="f2"
+            class="form-select w-100"
+            style="min-width: 200px;">
+      <option value="">------</option>
+      <c:forEach var="c" items="${classNums}">
+        <option value="${c.classNum}" <c:if test="${param.f2 == c.classNum}">selected</c:if>>${c.classNum}</option>
+      </c:forEach>
+    </select>
+  </div>
 
-      <!-- 在学中 -->
-		<div class="col-auto d-flex align-items-center">
-		  <!-- ★ チェックボックスに me-3 を追加し、右側に余白を確保 -->
-		  <input type="checkbox" name="f3" id="f3" value="true"
-		         class="form-check-input me-3"
-		         <c:if test="${param.f3 == 'true'}">checked</c:if> />
-		  <label for="f3" class="col-form-label fw-bold mb-0">在学中</label>
-		</div>
+  <!-- 在学中 -->
+  <div class="col-12 col-md-4 d-flex align-items-center mt-2 mt-md-0">
+    <div class="form-check">
+      <input type="checkbox" name="f3" id="f3" value="true"
+             class="form-check-input"
+             <c:if test="${param.f3 == 'true'}">checked</c:if> />
+      <label for="f3" class="form-check-label fw-bold">在学中</label>
+    </div>
+  </div>
+
+
+
 
 
       <!-- 絞り込みボタン -->

@@ -85,7 +85,7 @@
 
         <!-- ボタン -->
         <div class="text-end">
-          <button type="submit" class="btn btn-primary me-2">変更</button>yyyt
+          <button type="submit" class="btn btn-primary me-2">変更</button>
           <a href="${pageContext.request.contextPath}/StudentList.action"
              class="btn btn-secondary">戻る</a>
         </div>

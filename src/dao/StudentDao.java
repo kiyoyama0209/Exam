@@ -298,5 +298,63 @@ public class StudentDao extends Dao {
 
         return list;
     }
+ // ★ クラスのみで検索する専用のメソッド（安全に追加）
+    public List<Student> filterByClass(String schoolCd, String classNum) throws Exception {
+        List<Student> list = new ArrayList<>();
+        try (Connection con = getConnection()) {
+            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD = ? AND CLASS_NUM = ? AND IS_ATTEND = TRUE ORDER BY NO";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, schoolCd);
+            ps.setString(2, classNum);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Student st = new Student();
+                    st.setNo(rs.getString("NO"));
+                    st.setName(rs.getString("NAME"));
+                    st.setEntYear(rs.getInt("ENT_YEAR"));
+                    st.setClassNum(rs.getString("CLASS_NUM"));
+                    st.setAttend(rs.getBoolean("IS_ATTEND"));
+                    st.setSchoolCd(rs.getString("SCHOOL_CD"));
+                    list.add(st);
+                }
+            }
+        }
+        return list;
+    }
+ // ★ 在学中指定の有無で切り替える filterByClass（追加）
+    public List<Student> filterByClass(String schoolCd, String classNum, Boolean isAttend) throws Exception {
+        List<Student> list = new ArrayList<>();
+        Connection con = getConnection();
+        String sql;
+        PreparedStatement ps;
+
+        if (isAttend == null) {
+            sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD = ? AND CLASS_NUM = ? ORDER BY NO";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, schoolCd);
+            ps.setString(2, classNum);
+        } else {
+            sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD = ? AND CLASS_NUM = ? AND IS_ATTEND = ? ORDER BY NO";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, schoolCd);
+            ps.setString(2, classNum);
+            ps.setBoolean(3, isAttend);
+        }
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Student st = new Student();
+            st.setNo(rs.getString("NO"));
+            st.setName(rs.getString("NAME"));
+            st.setEntYear(rs.getInt("ENT_YEAR"));
+            st.setClassNum(rs.getString("CLASS_NUM"));
+            st.setAttend(rs.getBoolean("IS_ATTEND"));
+            st.setSchoolCd(rs.getString("SCHOOL_CD"));
+            list.add(st);
+        }
+        rs.close(); ps.close(); con.close();
+        return list;
+    }
+
 
 }

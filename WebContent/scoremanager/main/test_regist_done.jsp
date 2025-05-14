@@ -8,13 +8,11 @@
     <section class="container mt-5">
       <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績登録</h2>
 
-      <c:if test="${not empty message}">
         <div class="px-4">
           <div class="alert alert-success text-center m-0" role="alert">
-            ${message}
+            登録完了しました。
           </div>
         </div>
-      </c:if>
 
       <div class="text-start ps-4 mt-4">
         <!-- 一覧へ戻る (検索画面) -->

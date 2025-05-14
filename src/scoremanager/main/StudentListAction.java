@@ -15,30 +15,31 @@ import dao.StudentDao;
 import tool.Action;
 
 public class StudentListAction extends Action {
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // ログイン情報
+
+        // ログインチェック
         HttpSession session = request.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
-        // teacherがnullなら未ログイン扱い
         if (teacher == null) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        // 学校コードを取得
+        // 学校コード取得
         String schoolCd = teacher.getSchoolCd();
 
-        // フィルタパラメータ
-        String entYearStr = request.getParameter("f1");
-        String classNum = request.getParameter("f2");
+        // パラメータ取得
+        String entYearStr  = request.getParameter("f1");
+        String classNum    = request.getParameter("f2");
         String isAttendStr = request.getParameter("f3");
 
         Integer entYear = null;
         Boolean isAttend = null;
 
-        // 入学年度
+        // 入学年度パース
         if (entYearStr != null && !entYearStr.isEmpty()) {
             try {
                 entYear = Integer.parseInt(entYearStr);
@@ -47,12 +48,12 @@ public class StudentListAction extends Action {
             }
         }
 
-        // 在学中フラグ
+        // 在学中パース
         if (isAttendStr != null && !isAttendStr.isEmpty()) {
             isAttend = Boolean.parseBoolean(isAttendStr);
         }
 
-        // 年度プルダウン（今年±10年）
+        // 年度プルダウン生成
         List<Integer> years = new ArrayList<>();
         int currentYear = java.time.Year.now().getValue();
         for (int i = -10; i <= 1; i++) {
@@ -60,18 +61,18 @@ public class StudentListAction extends Action {
         }
         request.setAttribute("years", years);
 
-        // クラス番号プルダウン
+        // クラス番号プルダウン生成
         ClassNumDao classNumDao = new ClassNumDao();
         List<ClassNum> classNums = classNumDao.filter(schoolCd);
         request.setAttribute("classNums", classNums);
 
-        // 学生一覧
+        // 学生リスト取得
         StudentDao studentDao = new StudentDao();
         List<Student> students;
 
-        // 分岐
+        // 条件分岐
         if (entYear == null && (classNum == null || classNum.isEmpty()) && isAttend == null) {
-            students = studentDao.filterAll(schoolCd); // 全件取得
+            students = studentDao.filterAll(schoolCd);
         } else if (entYear != null && (classNum == null || classNum.isEmpty()) && isAttend == null) {
             students = studentDao.filter(schoolCd, entYear);
         } else if (entYear != null && classNum != null && !classNum.isEmpty() && isAttend == null) {
@@ -82,11 +83,14 @@ public class StudentListAction extends Action {
             students = studentDao.filter(schoolCd, entYear, classNum, isAttend);
         } else if (entYear == null && (classNum == null || classNum.isEmpty()) && isAttend != null) {
             students = studentDao.filter(schoolCd, isAttend);
+        } else if (entYear == null && classNum != null && !classNum.isEmpty()) {
+            // ★ クラスのみ or クラス＋在学中指定で柔軟に対応
+            students = studentDao.filterByClass(schoolCd, classNum, isAttend);
         } else {
-            students = studentDao.filterAll(schoolCd); // fallback も全件取得
+            students = studentDao.filterAll(schoolCd);
         }
 
-        // リクエストに詰めてJSPへ
+        // リクエスト属性にセットしてJSPへ
         request.setAttribute("students", students);
         request.getRequestDispatcher("scoremanager/main/student_list.jsp").forward(request, response);
     }

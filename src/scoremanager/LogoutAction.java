@@ -13,7 +13,7 @@ public class LogoutAction extends Action {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        // ログアウト後にログイン画面へ飛ばす
+        // ログイン画面にリダイレクト
         response.sendRedirect("login.jsp");
     }
 }

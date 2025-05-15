@@ -49,6 +49,9 @@ public class StudentCreateExecuteAction extends Action {
         } else if (!no.matches("\\d+")) {            // ← 数字以外を弾く
             request.setAttribute("errorNo", "学籍番号は半角数字のみで入力してください");
             hasError = true;
+        } else if (no.length() > 10) {
+            request.setAttribute("errorNo", "学籍番号は10文字以内で入力してください");
+            hasError = true;
         }
 
         // 入学年度チェック（必須 & 数値）
@@ -75,7 +78,13 @@ public class StudentCreateExecuteAction extends Action {
             hasError = true;
         }
 
-        /* ===== ④ エラー時は登録画面へ戻す ===== */
+
+        // ★ 氏名の長さチェック
+        if (name != null && name.length() > 30) {
+            request.setAttribute("errorName", "氏名は30文字以内で入力してください");
+            hasError = true;
+        }
+/* ===== ④ エラー時は登録画面へ戻す ===== */
         if (hasError) {
             // 入力済み値を保持
             Student backup = new Student();

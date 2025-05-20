@@ -91,7 +91,7 @@ public class TestListSubjectExecuteAction extends Action {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("message", "成績一覧の取得中にエラーが発生しました。");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/scoremanager/main/error.jsp");
             dispatcher.forward(req, res);
         }
 

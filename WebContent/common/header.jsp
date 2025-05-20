@@ -9,7 +9,7 @@
     <div class="nav align-self-end">
         <span class="nav-item px-2">${user.getName()}様</span>
         <!-- ログアウト -->
-        <a href="${pageContext.request.contextPath}/logout.jsp">ログアウト</a>
+        <a href="${pageContext.request.contextPath}/Logout.action">ログアウト</a>
 
     </div>
 </c:if>

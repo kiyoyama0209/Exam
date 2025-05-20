@@ -24,7 +24,7 @@ public class StudentCreateExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
         if (teacher == null) {
             // 未ログイン → ログイン画面へ
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/scoremanager/main/login.jsp");
             return;
         }
 

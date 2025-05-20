@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,35 +20,44 @@ import tool.Action;
  */
 public class TestRegistAction extends Action {
 
-    @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        /* ① ログインチェック */
-        HttpSession ses = req.getSession();
-        Teacher teacher = (Teacher) ses.getAttribute("user");
-        if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
-            return;
-        }
+	    // パラメータ取得
+	    String entYearStr = req.getParameter("f1");
+	    String classNum   = req.getParameter("f2");
+	    String subjectCd  = req.getParameter("f3");
+	    String noStr      = req.getParameter("f4");
 
-        String schoolCd = teacher.getSchoolCd();
+	    // チェック：どれか1つでも未入力ならエラー
+	    if (entYearStr == null || entYearStr.isEmpty() ||
+	        classNum == null   || classNum.isEmpty()   ||
+	        subjectCd == null  || subjectCd.isEmpty()  ||
+	        noStr == null      || noStr.isEmpty()) {
 
-        /* ② プルダウン共通生成 ― 年度・クラス・科目 ― */
-        List<Integer> years = new ArrayList<>();
-        int now = Year.now().getValue();
-        for (int i = -10; i <= 1; i++) years.add(now + i);
+	        req.setAttribute("error", "入学年度とクラスと科目と回数を選択してください");
 
-        ClassNumDao  cDao = new ClassNumDao();
-        SubjectDao   sDao = new SubjectDao();
-        List<ClassNum> classNums = cDao.filter(schoolCd);
-        List<Subject>  subjects  = sDao.filter(schoolCd);
+	        // プルダウン用データを再設定（TestRegistAction と同様）
+	        HttpSession ses = req.getSession();
+	        Teacher teacher = (Teacher) ses.getAttribute("user");
+	        String schoolCd = teacher.getSchoolCd();
 
-        req.setAttribute("years",     years);
-        req.setAttribute("classNums", classNums);
-        req.setAttribute("subjects",  subjects);
+	        List<Integer> years = new ArrayList<>();
+	        int now = java.time.Year.now().getValue();
+	        for (int i = -10; i <= 1; i++) years.add(now + i);
 
-        /* ③ 画面へ */
-        req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
-           .forward(req, res);
-    }
+	        ClassNumDao cDao = new ClassNumDao();
+	        SubjectDao sDao = new SubjectDao();
+	        List<ClassNum> classNums = cDao.filter(schoolCd);
+	        List<Subject> subjects = sDao.filter(schoolCd);
+
+	        req.setAttribute("years", years);
+	        req.setAttribute("classNums", classNums);
+	        req.setAttribute("subjects", subjects);
+
+	        req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+	           .forward(req, res);
+	        return;
+	    }
+	}
 }

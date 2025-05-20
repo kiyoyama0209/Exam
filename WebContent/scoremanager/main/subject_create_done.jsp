@@ -22,6 +22,12 @@
 
       <!-- 戻るリンク -->
       <div class="text-start ps-4 mt-4">
+        <!-- 新規登録に戻る -->
+        <a href="${pageContext.request.contextPath}/SubjectCreate.action" class="me-4">
+          戻る
+        </a>
+
+        <!-- 一覧に戻る -->
         <a href="${pageContext.request.contextPath}/SubjectList.action">
           科目一覧
         </a>

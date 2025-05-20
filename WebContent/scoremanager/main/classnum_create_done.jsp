@@ -12,9 +12,17 @@
         <div class="alert alert-success text-center" role="alert">
           登録が完了しました。
         </div>
-        <div class="mt-4 text-start">
-          <a href="${pageContext.request.contextPath}/ClassNumList.action">一覧に戻る</a>
-        </div>
+
+        <!-- 戻るリンク -->
+      <div class="text-start ps-4 mt-4">
+        <!-- 新規登録に戻る -->
+        <a href="${pageContext.request.contextPath}/ClassNumCreate.action" class="me-4">
+          戻る
+        </a>
+        <!-- 学生一覧に戻る -->
+        <a href="${pageContext.request.contextPath}/ClassNumList.action">
+          クラス一覧
+        </a>
       </div>
     </section>
   </c:param>

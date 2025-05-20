@@ -22,7 +22,7 @@
 
       <!-- 戻るリンク -->
 
-      <div class="text-start ps-4 mt-4">
+<div class="text-start ps-4 mt-4">
 <a href="${pageContext.request.contextPath}/Menu.action" style="margin-right: 10px;">
   戻る
 </a>

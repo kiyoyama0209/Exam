@@ -23,36 +23,36 @@
 </style>
 
 <section class="me-4">
-  <!-- ログインタイトル -->
-  <h2 class="login-title text-center">ログイン</h2>
+<!-- ログインタイトル -->
+<h2 class="login-title text-center">ログイン</h2>
 
   <!-- action先を必ずLoginExecute.actionにし、methodはPOST -->
-  <form class="px-4 my-5 mx-auto" style="max-width: 400px;"
+<form class="px-4 my-5 mx-auto" style="max-width: 400px;"
         action="LoginExecute.action" method="post">
-    <div class="mb-3">
-      <label for="id" class="form-label">ID</label>
-      <!-- 以前の「value="${id}"」を移行 -->
-      <input type="text" class="form-control login-input" id="id" name="id"
+<div class="mb-3">
+<label for="id" class="form-label">ID</label>
+<!-- 以前の「value="${id}"」を移行 -->
+<input type="text" class="form-control login-input" id="id" name="id"
              value="${id}" required>
-    </div>
+</div>
 
     <div class="mb-3">
-      <label for="password" class="form-label">パスワード</label>
-      <input type="password" class="form-control login-input" id="password" name="password" required>
-    </div>
+<label for="password" class="form-label">パスワード</label>
+<input type="password" class="form-control login-input" id="password" name="password" required>
+</div>
 
     <div class="mb-4 form-check">
-      <input type="checkbox" class="form-check-input" id="showPassword">
-      <label for="showPassword" class="form-check-label">パスワードを表示</label>
-    </div>
+<input type="checkbox" class="form-check-input" id="showPassword">
+<label for="showPassword" class="form-check-label">パスワードを表示</label>
+</div>
 
     <button type="submit" class="btn btn-primary w-100">ログイン</button>
-  </form>
+</form>
 
   <!-- エラーメッセージ表示（エラーがあるときだけ） -->
-  <c:if test="${not empty error}">
-    <p style="color:red;" class="text-center">${error}</p>
-  </c:if>
+<c:if test="${not empty error}">
+<p style="color:red;" class="text-center">${error}</p>
+</c:if>
 </section>
 
 <script>

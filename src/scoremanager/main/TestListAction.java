@@ -24,7 +24,7 @@ public class TestListAction extends Action {
 
         // teacherがnullなら未ログイン扱い
         if (teacher == null) {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
             return;
         }
 

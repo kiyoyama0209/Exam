@@ -15,7 +15,7 @@ public class SubjectCreateAction extends Action {
         HttpSession session = request.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
         if (teacher == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/scoremanager/main/login.jsp");
             return;
         }
         request.getRequestDispatcher("scoremanager/main/subject_create.jsp"

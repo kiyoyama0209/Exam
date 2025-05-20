@@ -14,6 +14,6 @@ public class LogoutAction extends Action {
         session.invalidate();
 
         // ログイン画面にリダイレクト
-        response.sendRedirect("login.jsp");
+        request.getRequestDispatcher("/scoremanager/main/logout.jsp").forward(request, response);
     }
 }

@@ -15,7 +15,7 @@ public class SubjectDeleteExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
             return;
         }
 

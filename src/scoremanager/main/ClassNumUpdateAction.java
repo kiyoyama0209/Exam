@@ -19,7 +19,7 @@ public class ClassNumUpdateAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            res.sendRedirect(req.getContextPath() + "login.jsp");
             return;
         }
 

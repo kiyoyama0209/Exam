@@ -23,7 +23,7 @@ public class StudentCreateAction extends Action {
 
         // 未ログインならログイン画面に戻す
         if (teacher == null) {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
             return;
         }
 

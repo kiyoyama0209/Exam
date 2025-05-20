@@ -18,7 +18,7 @@ public class StudentUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher t = (Teacher) ses.getAttribute("user");
         if (t == null) {
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
             return;
         }
 

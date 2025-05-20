@@ -24,7 +24,7 @@ public class StudentListAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
             return;
         }
 
@@ -66,6 +66,14 @@ public class StudentListAction extends Action {
         List<ClassNum> classNums = classNumDao.filter(schoolCd);
         request.setAttribute("classNums", classNums);
 
+        // ★ クラスのみ指定され、入学年度が未指定の場合 → エラー表示して終了
+        if ((entYear == null || entYearStr.isEmpty()) && classNum != null && !classNum.isEmpty()) {
+            request.setAttribute("error", "クラスを指定する場合は入学年度も指定してください");
+            request.setAttribute("students", new ArrayList<Student>());  // 空のリストを渡す
+            request.getRequestDispatcher("scoremanager/main/student_list.jsp").forward(request, response);
+            return;
+        }
+
         // 学生リスト取得
         StudentDao studentDao = new StudentDao();
         List<Student> students;
@@ -83,9 +91,6 @@ public class StudentListAction extends Action {
             students = studentDao.filter(schoolCd, entYear, classNum, isAttend);
         } else if (entYear == null && (classNum == null || classNum.isEmpty()) && isAttend != null) {
             students = studentDao.filter(schoolCd, isAttend);
-        } else if (entYear == null && classNum != null && !classNum.isEmpty()) {
-            // ★ クラスのみ or クラス＋在学中指定で柔軟に対応
-            students = studentDao.filterByClass(schoolCd, classNum, isAttend);
         } else {
             students = studentDao.filterAll(schoolCd);
         }

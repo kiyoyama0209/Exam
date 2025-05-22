@@ -24,8 +24,8 @@ public class StudentListAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);           
+        	return;
         }
 
         // 学校コード取得
@@ -70,7 +70,7 @@ public class StudentListAction extends Action {
         if ((entYear == null || entYearStr.isEmpty()) && classNum != null && !classNum.isEmpty()) {
             request.setAttribute("error", "クラスを指定する場合は入学年度も指定してください");
             request.setAttribute("students", new ArrayList<Student>());  // 空のリストを渡す
-            request.getRequestDispatcher("scoremanager/main/student_list.jsp").forward(request, response);
+            request.getRequestDispatcher("student_list.jsp").forward(request, response);
             return;
         }
 
@@ -97,6 +97,6 @@ public class StudentListAction extends Action {
 
         // リクエスト属性にセットしてJSPへ
         request.setAttribute("students", students);
-        request.getRequestDispatcher("scoremanager/main/student_list.jsp").forward(request, response);
+        request.getRequestDispatcher("student_list.jsp").forward(request, response);
     }
 }

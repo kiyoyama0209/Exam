@@ -64,7 +64,7 @@ public class TestListStudentExecuteAction extends Action {
         // 入力がない場合は終了
         if (studentNo == null || studentNo.isEmpty()) {
             request.setAttribute("message", "学生番号を入力してください。");
-            request.getRequestDispatcher("/scoremanager/main/test_list.jsp").forward(request, response);
+            request.getRequestDispatcher("test_list.jsp").forward(request, response);
             return;
         }
 
@@ -81,6 +81,6 @@ public class TestListStudentExecuteAction extends Action {
         request.setAttribute("studentId", studentNo); // 再表示用
 
         // JSPへフォワード
-        request.getRequestDispatcher("/scoremanager/main/test_list_student.jsp").forward(request, response);
+        request.getRequestDispatcher("test_list_student.jsp").forward(request, response);
     }
 }

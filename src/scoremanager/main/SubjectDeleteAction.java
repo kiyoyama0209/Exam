@@ -21,8 +21,8 @@ public class SubjectDeleteAction extends Action {
 
         // 未ログインの場合、ログイン画面へ
         if (teacher == null) {
-            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);
+        	return;
         }
 
         // パラメータから科目コードを取得
@@ -35,12 +35,12 @@ public class SubjectDeleteAction extends Action {
         // 該当科目がなければエラー表示
         if (subject == null) {
             request.setAttribute("error", "指定された科目が存在しません。");
-            request.getRequestDispatcher("/scoremanager/main/subject_list.jsp").forward(request, response);
+            request.getRequestDispatcher("subject_list.jsp").forward(request, response);
             return;
         }
 
         // JSPに科目情報を渡す
         request.setAttribute("subject", subject);
-        request.getRequestDispatcher("scoremanager/main/subject_delete.jsp").forward(request, response);
+        request.getRequestDispatcher("subject_delete.jsp").forward(request, response);
     }
 }

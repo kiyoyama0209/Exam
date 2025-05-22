@@ -19,8 +19,8 @@ public class ClassNumUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② パラメータ取得 */
@@ -42,7 +42,7 @@ public class ClassNumUpdateExecuteAction extends Action {
         }
 
         if (hasErr) {
-            req.getRequestDispatcher("/ClassNumUpdate.action")
+            req.getRequestDispatcher("ClassNumUpdate.action")
                .forward(req, res);
             return;
         }
@@ -58,7 +58,7 @@ public class ClassNumUpdateExecuteAction extends Action {
         String msg = "クラス番号を「" + oldClassNum + " → " + newClassNum + "」へ変更しました。"
                    + "学生 " + updatedRows + " 名の所属クラスも更新しました。";
         req.setAttribute("message", msg);
-        req.getRequestDispatcher("/scoremanager/main/classnum_update_done.jsp")
+        req.getRequestDispatcher("classnum_update_done.jsp")
            .forward(req, res);
     }
 }

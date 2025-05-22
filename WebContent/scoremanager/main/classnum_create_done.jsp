@@ -16,11 +16,11 @@
         <!-- 戻るリンク -->
       <div class="text-start ps-4 mt-4">
         <!-- 新規登録に戻る -->
-        <a href="${pageContext.request.contextPath}/ClassNumCreate.action" class="me-4">
+        <a href="ClassNumCreate.action" class="me-4">
           戻る
         </a>
         <!-- 学生一覧に戻る -->
-        <a href="${pageContext.request.contextPath}/ClassNumList.action">
+        <a href="ClassNumList.action">
           クラス一覧
         </a>
       </div>

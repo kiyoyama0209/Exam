@@ -8,7 +8,7 @@
     <section class="container mt-5">
       <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">クラス新規登録</h2>
 
-      <form action="${pageContext.request.contextPath}/ClassNumCreateExecute.action" method="post" class="px-4">
+      <form action="ClassNumCreateExecute.action" method="post" class="px-4">
         <div class="mb-3">
           <label for="classNum" class="form-label fw-bold">クラス番号</label>
           <input type="text" name="classNum" id="classNum" class="form-control w-25" required>

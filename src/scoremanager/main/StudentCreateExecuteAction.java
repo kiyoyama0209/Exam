@@ -24,8 +24,8 @@ public class StudentCreateExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
         if (teacher == null) {
             // 未ログイン → ログイン画面へ
-            response.sendRedirect(request.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);
+        	return;
         }
 
         /* ===== ② パラメータ取得 ===== */
@@ -97,7 +97,7 @@ public class StudentCreateExecuteAction extends Action {
             request.setAttribute("student", backup);
 
             // リスト再生成のため StudentCreateAction にフォワード
-            request.getRequestDispatcher("/StudentCreate.action")
+            request.getRequestDispatcher("StudentCreate.action")
                    .forward(request, response);
             return;
         }
@@ -115,7 +115,7 @@ public class StudentCreateExecuteAction extends Action {
 
         /* ===== ⑥ 完了画面へ遷移 ===== */
         request.setAttribute("message", "学生の登録が完了しました");
-        request.getRequestDispatcher("/scoremanager/main/student_create_done.jsp")
+        request.getRequestDispatcher("student_create_done.jsp")
                .forward(request, response);
     }
 }

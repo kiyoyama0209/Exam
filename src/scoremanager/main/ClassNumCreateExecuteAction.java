@@ -16,7 +16,7 @@ public class ClassNumCreateExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("/teamE/scoremanager/login.acion");
             return;
         }
 
@@ -29,6 +29,6 @@ public class ClassNumCreateExecuteAction extends Action {
         ClassNumDao classNumDao = new ClassNumDao();
         classNumDao.insert(classNum);  // INSERT処理（↓下で説明）
 
-        request.getRequestDispatcher("/scoremanager/main/classnum_create_done.jsp").forward(request, response);
+        request.getRequestDispatcher("classnum_create_done.jsp").forward(request, response);
     }
 }

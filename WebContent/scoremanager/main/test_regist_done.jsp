@@ -16,10 +16,10 @@
 
       <div class="text-start ps-4 mt-4">
         <!-- 一覧へ戻る (検索画面) -->
-        <a href="${pageContext.request.contextPath}/TestRegist.action">成績登録へ戻る</a>
+        <a href="TestRegist.action">成績登録へ戻る</a>
       </div>
       <div class="text-start ps-4 mt-4">
-      	<a href="${pageContext.request.contextPath}/TestList.action">成績参照を表示</a>
+      	<a href="TestList.action">成績参照を表示</a>
       </div>
     </section>
   </c:param>

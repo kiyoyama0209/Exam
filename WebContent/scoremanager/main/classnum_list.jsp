@@ -21,7 +21,7 @@
 
         </div>
         <div>
-          <a href="${pageContext.request.contextPath}/ClassNumCreate.action">新規登録</a>
+          <a href="ClassNumCreate.action">新規登録</a>
         </div>
       </div>
 
@@ -39,7 +39,7 @@
               <tr>
                 <td class="align-middle">${c.classNum}</td>
                 <td class="text-center align-middle">
-                  <a href="${pageContext.request.contextPath}/ClassNumUpdate.action?classNum=${c.classNum}">変更</a>
+                  <a href="ClassNumUpdate.action?classNum=${c.classNum}">変更</a>
                 </td>
               </tr>
             </c:forEach>

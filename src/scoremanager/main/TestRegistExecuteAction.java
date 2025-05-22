@@ -32,7 +32,7 @@ public class TestRegistExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
             return;
         }
         String schoolCd = teacher.getSchoolCd();
@@ -54,7 +54,7 @@ public class TestRegistExecuteAction extends Action {
             no      = (noStr      == null || noStr.isEmpty())      ? null : Integer.parseInt(noStr);
         } catch (NumberFormatException e) {
             req.setAttribute("error", "検索条件が不正です");
-            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;
         }
 
@@ -75,7 +75,7 @@ public class TestRegistExecuteAction extends Action {
             req.setAttribute("selSubjectCd", subjectCd);
             req.setAttribute("selNo",        no);
 
-            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;
         }
 
@@ -83,7 +83,7 @@ public class TestRegistExecuteAction extends Action {
 
         if (entYear == null || classNum == null || subjectCd == null || no == null) {
             req.setAttribute("error", "検索条件が不足しています");
-            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;
         }
 
@@ -117,7 +117,7 @@ public class TestRegistExecuteAction extends Action {
         }
 
         /* 完了メッセージ */
-        req.getRequestDispatcher("/scoremanager/main/test_regist_done.jsp")
+        req.getRequestDispatcher("test_regist_done.jsp")
         .forward(req, res);
 
         /* 検索モードと同じデータを再表示 */
@@ -132,7 +132,7 @@ public class TestRegistExecuteAction extends Action {
         req.setAttribute("selSubjectCd", subjectCd);
         req.setAttribute("selNo",        no);
 
-        req.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(req, res);
+        req.getRequestDispatcher("test_regist.jsp").forward(req, res);
     }
 
     /*───────────────── ヘルパ ─────────────────*/

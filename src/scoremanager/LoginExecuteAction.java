@@ -43,6 +43,6 @@ public class LoginExecuteAction extends Action {
         session.setAttribute("user", teacher);
 
         // メニュー画面にリダイレクト
-        response.sendRedirect("Menu.action");
+        response.sendRedirect("main/Menu.action");
     }
 }

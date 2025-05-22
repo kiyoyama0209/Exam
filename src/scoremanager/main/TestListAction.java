@@ -24,8 +24,8 @@ public class TestListAction extends Action {
 
         // teacherがnullなら未ログイン扱い
         if (teacher == null) {
-            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);
+        	return;
         }
 
         // 学校コードを取得
@@ -65,6 +65,6 @@ public class TestListAction extends Action {
 
         // 表示用JSPにフォワード
 
-        request.getRequestDispatcher("scoremanager/main/test_list.jsp").forward(request, response);
+        request.getRequestDispatcher("test_list.jsp").forward(request, response);
     }
 }

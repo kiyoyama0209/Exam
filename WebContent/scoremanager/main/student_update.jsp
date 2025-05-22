@@ -18,7 +18,7 @@
       </c:if>
 
       <!-- ===== フォーム ===== -->
-      <form action="${pageContext.request.contextPath}/StudentUpdateExecute.action"
+      <form action="StudentUpdateExecute.action"
             method="post"
             class="mx-4">
 
@@ -86,7 +86,7 @@
         <!-- ボタン -->
         <div class="text-end">
           <button type="submit" class="btn btn-primary me-2">変更</button>
-          <a href="${pageContext.request.contextPath}/StudentList.action"
+          <a href="StudentList.action"
              class="btn btn-secondary">戻る</a>
         </div>
       </form>

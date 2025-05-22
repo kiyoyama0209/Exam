@@ -4,24 +4,24 @@
 
 <ul class="nav nav-pills flex-column mb-auto px-4">
   <li class="nav-item my-3">
-    <a href="${pageContext.request.contextPath}/Menu.action">メニュー</a>
+    <a href="Menu.action">メニュー</a>
   </li>
   <li class="nav-item mb-3">
-    <a href="${pageContext.request.contextPath}/StudentList.action">学生管理</a>
+    <a href="StudentList.action">学生管理</a>
   </li>
 
   <li class="nav-item">成績管理</li>
   <li class="nav-item mx-3 mb-3">
-    <a href="${pageContext.request.contextPath}/TestRegist.action">成績登録</a>
+    <a href="TestRegist.action">成績登録</a>
   </li>
   <li class="nav-item mx-3 mb-3">
-    <a href="${pageContext.request.contextPath}/TestList.action">成績参照</a>
+    <a href="TestList.action">成績参照</a>
   </li>
 
   <li class="nav-item mb-3">
-    <a href="${pageContext.request.contextPath}/SubjectList.action">科目管理</a>
+    <a href="SubjectList.action">科目管理</a>
   </li>
   <li class="nav-item mb-3">
-    <a href="${pageContext.request.contextPath}/ClassNumList.action">クラス管理</a>
+    <a href="ClassNumList.action">クラス管理</a>
   </li>
 </ul>

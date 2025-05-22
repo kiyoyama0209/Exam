@@ -22,8 +22,8 @@ public class SubjectUpdateAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② エラー再表示時は request に subject が載っている */
@@ -32,21 +32,21 @@ public class SubjectUpdateAction extends Action {
             /* 初回表示時はパラメータの cd から 1 件取得 */
             String cd = req.getParameter("cd");
             if (cd == null || cd.isEmpty()) {
-                res.sendRedirect(req.getContextPath() + "/SubjectList.action");
+                res.sendRedirect("SubjectList.action");
                 return;
             }
 
             SubjectDao dao = new SubjectDao();
             subject = dao.get(cd);
             if (subject == null) {
-                res.sendRedirect(req.getContextPath() + "/SubjectList.action");
+                res.sendRedirect("SubjectList.action");
                 return;
             }
         }
 
         /* ③ JSP へ */
         req.setAttribute("subject", subject);
-        req.getRequestDispatcher("/scoremanager/main/subject_update.jsp")
+        req.getRequestDispatcher("subject_update.jsp")
            .forward(req, res);
     }
 }

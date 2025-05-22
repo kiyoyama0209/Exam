@@ -13,7 +13,7 @@
       <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
       <!-- ****** 検索フォーム ****** -->
-      <form action="${pageContext.request.contextPath}/TestRegistExecute.action" method="get">
+      <form action="TestRegistExecute.action" method="get">
         <div class="border rounded p-3 shadow-sm">
           <div class="row gx-3 gy-2 align-items-end">
 
@@ -82,7 +82,7 @@
 
       <!-- ****** 学生一覧 + 点数入力 ****** -->
       <c:if test="${not empty students}">
-        <form action="${pageContext.request.contextPath}/TestRegistExecute.action" method="post" class="mt-4">
+        <form action="TestRegistExecute.action" method="post" class="mt-4">
           <!-- 検索条件保持 -->
           <input type="hidden" name="mode"      value="register">
           <input type="hidden" name="entYear"   value="${selEntYear}">

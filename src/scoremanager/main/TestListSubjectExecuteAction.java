@@ -85,13 +85,13 @@ public class TestListSubjectExecuteAction extends Action {
             req.setAttribute("testListSubject", list);
 
             // JSP へフォワード
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/scoremanager/main/test_list_subject.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("test_list_subject.jsp");
             dispatcher.forward(req, res);
 
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("message", "成績一覧の取得中にエラーが発生しました。");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/scoremanager/main/error.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
             dispatcher.forward(req, res);
         }
 

@@ -14,7 +14,7 @@
         <div>
         </div>
         <div>
-          <a href="${pageContext.request.contextPath}/SubjectCreate.action">新規登録</a>
+          <a href="SubjectCreate.action">新規登録</a>
         </div>
       </div>
 
@@ -40,11 +40,11 @@
                     <td>${s.cd}</td>
                     <td>${s.name}</td>
                     <td class="text-center">
-                      <a href="${pageContext.request.contextPath}/SubjectUpdate.action?cd=${s.cd}">変更</a>
+                      <a href="SubjectUpdate.action?cd=${s.cd}">変更</a>
 
                     </td>
                     <td class="text-center">
-                    	<a href="${pageContext.request.contextPath}/SubjectDelete.action?code=${s.cd}">削除</a>
+                    	<a href="SubjectDelete.action?code=${s.cd}">削除</a>
                     </td>
                   </tr>
                 </c:forEach>

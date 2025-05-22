@@ -22,8 +22,8 @@ public class SubjectUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② パラメータ取得 */
@@ -45,7 +45,7 @@ public class SubjectUpdateExecuteAction extends Action {
             backup.setSchoolCd(teacher.getSchoolCd());
 
             req.setAttribute("subject", backup);
-            req.getRequestDispatcher("/SubjectUpdate.action").forward(req, res);
+            req.getRequestDispatcher("SubjectUpdate.action").forward(req, res);
             return;
         }
 
@@ -53,7 +53,7 @@ public class SubjectUpdateExecuteAction extends Action {
         SubjectDao dao = new SubjectDao();
         Subject subject = dao.get(cd);
         if (subject == null) {
-            res.sendRedirect(req.getContextPath() + "/SubjectList.action");
+            res.sendRedirect("SubjectList.action");
             return;
         }
         subject.setName(name);
@@ -61,7 +61,7 @@ public class SubjectUpdateExecuteAction extends Action {
 
         /* ⑤ 完了画面へ */
         req.setAttribute("message", "科目情報の変更が完了しました");
-        req.getRequestDispatcher("/scoremanager/main/subject_update_done.jsp")
+        req.getRequestDispatcher("subject_update_done.jsp")
            .forward(req, res);
     }
 }

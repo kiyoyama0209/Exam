@@ -55,7 +55,7 @@ public class TestRegistAction extends Action {
 	        req.setAttribute("classNums", classNums);
 	        req.setAttribute("subjects", subjects);
 
-	        req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+	        req.getRequestDispatcher("test_regist.jsp")
 	           .forward(req, res);
 	        return;
 	    }

@@ -23,12 +23,12 @@
       <!-- 戻るリンク -->
       <div class="text-start ps-4 mt-4">
         <!-- 新規登録に戻る -->
-        <a href="${pageContext.request.contextPath}/StudentCreate.action" class="me-4">
+        <a href="StudentCreate.action" class="me-4">
           戻る
         </a>
 
         <!-- 学生一覧に戻る -->
-        <a href="${pageContext.request.contextPath}/StudentList.action">
+        <a href="StudentList.action">
           学生一覧
         </a>
       </div>

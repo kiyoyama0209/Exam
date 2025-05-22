@@ -14,7 +14,7 @@
       </c:if>
 
       <!-- 変更フォーム -->
-      <form action="${pageContext.request.contextPath}/ClassNumUpdateExecute.action"
+      <form action="ClassNumUpdateExecute.action"
             method="post" class="px-4">
 
         <!-- 現在のクラス番号（表示のみ／送信用） -->
@@ -34,7 +34,7 @@
         <!-- ボタン -->
         <div class="text-start mb-3">
           <button type="submit" class="btn btn-primary">変更</button>
-          <a href="${pageContext.request.contextPath}/ClassNumList.action"
+          <a href="ClassNumList.action"
              class="btn btn-secondary ms-2">戻る</a>
         </div>
       </form>

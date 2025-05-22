@@ -15,10 +15,10 @@ public class SubjectCreateAction extends Action {
         HttpSession session = request.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
         if (teacher == null) {
-            response.sendRedirect(request.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);
+        	return;
         }
-        request.getRequestDispatcher("scoremanager/main/subject_create.jsp"
+        request.getRequestDispatcher("subject_create.jsp"
         		).forward(request, response);
 	}
 }

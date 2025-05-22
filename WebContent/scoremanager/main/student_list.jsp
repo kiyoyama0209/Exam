@@ -13,7 +13,7 @@
       <div class="d-flex justify-content-between align-items-center px-4 mb-2">
         <div></div>
         <div>
-          <a href="${pageContext.request.contextPath}/StudentCreate.action">新規登録</a>
+          <a href="StudentCreate.action">新規登録</a>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
       </c:if>
 
       <!-- 絞り込みフォーム -->
-      <form action="${pageContext.request.contextPath}/StudentList.action" method="post">
+      <form action="StudentList.action" method="post">
         <div class="border rounded p-3 shadow-sm">
           <div class="row gx-3 gy-2 align-items-end">
 
@@ -113,7 +113,7 @@
                       </c:choose>
                     </td>
                     <td class="text-center">
-                      <a href="${pageContext.request.contextPath}/StudentUpdate.action?no=${s.no}">変更</a>
+                      <a href="StudentUpdate.action?no=${s.no}">変更</a>
                     </td>
                   </tr>
                 </c:forEach>

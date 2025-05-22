@@ -23,8 +23,8 @@ public class StudentUpdateAction extends Action {
         HttpSession ses = req.getSession();
         Teacher t = (Teacher) ses.getAttribute("user");
         if (t == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② 既に student が渡っていれば再利用（エラー再表示時） */
@@ -32,14 +32,14 @@ public class StudentUpdateAction extends Action {
         if (student == null) {
             String no = req.getParameter("no");
             if (no == null || no.isEmpty()) {
-                res.sendRedirect(req.getContextPath() + "/StudentList.action");
+                res.sendRedirect("StudentList.action");
                 return;
             }
             /* ③ DB 取得 */
             StudentDao sDao = new StudentDao();
             student = sDao.get(no);
             if (student == null) {
-                res.sendRedirect(req.getContextPath() + "/StudentList.action");
+                res.sendRedirect("StudentList.action");
                 return;
             }
         }
@@ -57,6 +57,6 @@ public class StudentUpdateAction extends Action {
         req.setAttribute("classNums", classNums);
         req.setAttribute("student", student);
 
-        req.getRequestDispatcher("/scoremanager/main/student_update.jsp").forward(req, res);
+        req.getRequestDispatcher("student_update.jsp").forward(req, res);
     }
 }

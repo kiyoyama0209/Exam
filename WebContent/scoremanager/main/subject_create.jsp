@@ -42,7 +42,7 @@
 
       <!-- 戻るリンク -->
       <div class="text-start mt-3">
-        <a href="${pageContext.request.contextPath}/SubjectList.action">戻る</a>
+        <a href="SubjectList.action">戻る</a>
       </div>
     </section>
   </c:param>

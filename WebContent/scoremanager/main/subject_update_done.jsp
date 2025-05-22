@@ -19,7 +19,7 @@
       </c:if>
 
       <div class="text-start ps-4 mt-4">
-        <a href="${pageContext.request.contextPath}/SubjectList.action">科目一覧</a>
+        <a href="SubjectList.action">科目一覧</a>
       </div>
     </section>
   </c:param>

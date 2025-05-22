@@ -18,8 +18,8 @@ public class ClassNumListAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);            
+        	return;
         }
 
         String schoolCd = teacher.getSchoolCd();
@@ -29,6 +29,6 @@ public class ClassNumListAction extends Action {
 
         request.setAttribute("list", list);
 
-        request.getRequestDispatcher("/scoremanager/main/classnum_list.jsp").forward(request, response);
+        request.getRequestDispatcher("classnum_list.jsp").forward(request, response);
     }
 }

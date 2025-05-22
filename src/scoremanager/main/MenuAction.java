@@ -15,7 +15,7 @@ public class MenuAction extends Action {
     public void execute(HttpServletRequest request,
                         HttpServletResponse response) throws Exception {
         // 画面をそのまま表示させるだけ
-        request.getRequestDispatcher("/scoremanager/main/menu.jsp")
+        request.getRequestDispatcher("menu.jsp")
                .forward(request, response);
     }
 }

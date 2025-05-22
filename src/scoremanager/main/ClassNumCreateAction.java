@@ -14,10 +14,10 @@ public class ClassNumCreateAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("/teamE/scoremanager/login.acion");
             return;
         }
 
-        request.getRequestDispatcher("/scoremanager/main/classnum_create.jsp").forward(request, response);
+        request.getRequestDispatcher("classnum_create.jsp").forward(request, response);
     }
 }

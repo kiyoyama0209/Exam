@@ -22,7 +22,7 @@
 
       <!-- 戻るリンク -->
       <div class="text-start ps-4 mt-4">
-        <a href="${pageContext.request.contextPath}/Login.action">ログイン画面へ</a>
+        <a href="../Login.action">ログイン画面へ</a>
       </div>
     </section>
   </c:param>

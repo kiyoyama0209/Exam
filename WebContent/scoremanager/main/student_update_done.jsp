@@ -22,7 +22,7 @@
 
       <!-- 戻るリンク -->
       <div class="text-start ps-4 mt-4">
-        <a href="${pageContext.request.contextPath}/StudentList.action">
+        <a href="StudentList.action">
           学生一覧
         </a>
       </div>

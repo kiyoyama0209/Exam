@@ -23,8 +23,8 @@ public class StudentCreateAction extends Action {
 
         // 未ログインならログイン画面に戻す
         if (teacher == null) {
-            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);           
+        	return;
         }
 
         // 学校コード取得
@@ -50,6 +50,6 @@ public class StudentCreateAction extends Action {
         request.setAttribute("classNums", classNums);
         request.setAttribute("student", student);
 
-        request.getRequestDispatcher("scoremanager/main/student_create.jsp").forward(request, response);
+        request.getRequestDispatcher("student_create.jsp").forward(request, response);
     }
 }

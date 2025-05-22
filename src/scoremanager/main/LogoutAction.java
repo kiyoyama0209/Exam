@@ -1,4 +1,4 @@
-package scoremanager;
+package scoremanager.main;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +13,7 @@ public class LogoutAction extends Action {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        // ログイン画面にリダイレクト
-        request.getRequestDispatcher("/scoremanager/main/logout.jsp").forward(request, response);
+        // ログアウト画面を表示
+        request.getRequestDispatcher("logout.jsp").forward(request, response);
     }
 }

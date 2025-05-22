@@ -12,7 +12,7 @@
       </h2>
 
       <!-- ======== 変更フォーム ======== -->
-      <form action="${pageContext.request.contextPath}/SubjectUpdateExecute.action"
+      <form action="SubjectUpdateExecute.action"
             method="post"
             class="px-4">
 
@@ -39,7 +39,7 @@
 
       <!-- ⑤ 戻るリンク -->
       <div class="text-start mt-4">
-        <a href="${pageContext.request.contextPath}/SubjectList.action">戻る</a>
+        <a href="SubjectList.action">戻る</a>
       </div>
     </section>
   </c:param>

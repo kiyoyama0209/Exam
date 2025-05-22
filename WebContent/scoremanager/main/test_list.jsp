@@ -9,7 +9,7 @@
       <h2 class="mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
       <!-- 科目情報フォーム -->
-		<form action="${pageContext.request.contextPath}/TestListSubjectExecute.action" method="post">
+		<form action="TestListSubjectExecute.action" method="post">
 		  <div class="border rounded p-3 mx-3 mb-0">
 		    <div class="row align-items-end gy-2 gx-3">
 
@@ -66,7 +66,7 @@
       <hr class="mx-3 my-0"/>
 
       <!-- 学生番号で検索 -->
-		<form action="${pageContext.request.contextPath}/TestListStudentExecute.action" method="post">
+		<form action="TestListStudentExecute.action" method="post">
 		  <div class="border rounded p-3 mx-3 mt-0">
 		    <div class="row align-items-end gy-2 gx-3">
 

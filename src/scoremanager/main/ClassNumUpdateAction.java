@@ -19,27 +19,27 @@ public class ClassNumUpdateAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-            res.sendRedirect(req.getContextPath() + "login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② 変更対象を取得 */
         String classNum = req.getParameter("classNum");
         if (classNum == null || classNum.isEmpty()) {
-            res.sendRedirect(req.getContextPath() + "/ClassNumList.action");
+            res.sendRedirect("ClassNumList.action");
             return;
         }
 
         ClassNumDao dao = new ClassNumDao();
         ClassNum cn = dao.get(classNum, teacher.getSchoolCd());
         if (cn == null) {
-            res.sendRedirect(req.getContextPath() + "/ClassNumList.action");
+            res.sendRedirect("ClassNumList.action");
             return;
         }
 
         /* ③ JSPへ */
         req.setAttribute("classNum", cn);
-        req.getRequestDispatcher("/scoremanager/main/classnum_update.jsp")
+        req.getRequestDispatcher("classnum_update.jsp")
            .forward(req, res);
     }
 }

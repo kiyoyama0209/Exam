@@ -18,8 +18,8 @@ public class SubjectListAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null) {
-            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
-            return;
+        	request.getRequestDispatcher("../login.jsp").forward(request, response);
+        	return;
         }
 
         String schoolCd = teacher.getSchoolCd();
@@ -27,6 +27,6 @@ public class SubjectListAction extends Action {
         List<Subject> subject = subjectDao.filter(schoolCd);
 
         request.setAttribute("subject", subject);
-        request.getRequestDispatcher("scoremanager/main/subject_list.jsp").forward(request, response);
+        request.getRequestDispatcher("subject_list.jsp").forward(request, response);
     }
 }

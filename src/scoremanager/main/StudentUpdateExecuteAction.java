@@ -18,8 +18,8 @@ public class StudentUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher t = (Teacher) ses.getAttribute("user");
         if (t == null) {
-            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
-            return;
+        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+        	return;
         }
 
         /* ② パラメータ取得 */
@@ -54,7 +54,7 @@ public class StudentUpdateExecuteAction extends Action {
             req.setAttribute("student", st);
 
             /* StudentUpdateAction へフォワード（no は student に入っているので不要） */
-            req.getRequestDispatcher("/StudentUpdate.action").forward(req, res);
+            req.getRequestDispatcher("StudentUpdate.action").forward(req, res);
             return;
         }
 
@@ -62,7 +62,7 @@ public class StudentUpdateExecuteAction extends Action {
         StudentDao dao = new StudentDao();
         Student st = dao.get(no);
         if (st == null) {
-            res.sendRedirect(req.getContextPath() + "/StudentList.action");
+            res.sendRedirect("StudentList.action");
             return;
         }
         st.setName(name); st.setClassNum(classNum); st.setAttend(attend);
@@ -70,7 +70,7 @@ public class StudentUpdateExecuteAction extends Action {
 
         /* ⑤ 完了画面へ ― パス typo 修正 ― */
         req.setAttribute("message", "学生情報の変更が完了しました");
-        req.getRequestDispatcher("/scoremanager/main/student_update_done.jsp")
+        req.getRequestDispatcher("student_update_done.jsp")
            .forward(req, res);
     }
 }

@@ -89,10 +89,10 @@ public class TestListSubjectExecuteAction extends Action {
             dispatcher.forward(req, res);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("message", "成績一覧の取得中にエラーが発生しました。");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
-            dispatcher.forward(req, res);
+            // 重複エラー等の例外時は入力画面へ戻す
+            req.setAttribute("errorNo", "入学年度とクラスと科目を選択してください");
+            req.getRequestDispatcher("test_list.jsp")
+                   .forward(req, res);
         }
 
     }

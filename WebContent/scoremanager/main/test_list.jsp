@@ -58,6 +58,9 @@
 		      <div class="col-auto">
 		        <button type="submit" class="btn btn-secondary">検索</button>
 		      </div>
+		     <c:if test="${not empty errorNo}">
+                <div class="form-text text-warning">${errorNo}</div>
+             </c:if>
 		    </div>
 		  </div>
 		</form>

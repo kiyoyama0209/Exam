@@ -23,7 +23,7 @@
       <!-- 戻るリンク -->
 
 <div class="text-start ps-4 mt-4">
-<a href="Menu.action" style="margin-right: 10px;">
+<a href="SubjectCreate.action" style="margin-right: 10px;">
   戻る
 </a>
 <a href="SubjectList.action">

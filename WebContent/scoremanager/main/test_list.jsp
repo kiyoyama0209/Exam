@@ -81,7 +81,7 @@
 		      <!-- 学生番号 -->
 		      <div class="col-12 col-lg-6">
 		        <label for="studentId" class="form-label fw-bold">学生番号</label>
-		        <input type="text" name="studentId" id="studentId" class="form-control" placeholder="学生番号を入力してください" value="${param.studentId}"/>
+		        <input type="text" name="studentId" id="studentId" class="form-control" placeholder="学生番号を入力してください" required value="${param.studentId}"/>
 		      </div>
 
 		      <!-- 検索ボタン -->

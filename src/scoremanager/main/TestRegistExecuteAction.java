@@ -28,19 +28,19 @@ public class TestRegistExecuteAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        /* ① ログイン確認 */
+        /* 1. ログイン確認 */
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-        	req.getRequestDispatcher("../login.jsp").forward(req, res);
+            res.sendRedirect(req.getContextPath() + "/scoremanager/main/login.jsp");
             return;
         }
         String schoolCd = teacher.getSchoolCd();
 
-        /* ② 共通プルダウン再生成 */
+        /* 2. 共通プルダウン再生成 */
         buildPulldowns(req, schoolCd);
 
-        /* ③ パラメータ取得 */
+        /* 3. パラメータ取得 */
         String mode       = req.getParameter("mode");        // "register" のとき得点登録
         String entYearStr = req.getParameter("entYear");
         String classNum   = req.getParameter("classNum");
@@ -54,18 +54,32 @@ public class TestRegistExecuteAction extends Action {
             no      = (noStr      == null || noStr.isEmpty())      ? null : Integer.parseInt(noStr);
         } catch (NumberFormatException e) {
             req.setAttribute("error", "検索条件が不正です");
-            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+               .forward(req, res);
             return;
         }
 
-        /* ======== 検索モード ======== */
+        /* ---------- 検索モード ---------- */
         if (!"register".equals(mode)) {
 
-            StudentDao sDao = new StudentDao();
-            List<Student> students = sDao.filter(schoolCd, entYear, classNum); // ← 可変条件版
+            /* ★ 必須入力チェック */
+            if (entYear == null
+                    || classNum == null || classNum.isEmpty()
+                    || subjectCd == null || subjectCd.isEmpty()
+                    || no == null) {
 
-            // 既存得点を取得
-            Map<String,Integer> pointMap = fetchPointMap(entYear, classNum, subjectCd, no, schoolCd);
+                req.setAttribute("error", "入学年度とクラスと科目と回数を選択してください");
+                req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+                   .forward(req, res);
+                return;
+            }
+
+            /* 学生一覧 + 既存点数取得 */
+            StudentDao sDao = new StudentDao();
+            List<Student> students = sDao.filter(schoolCd, entYear, classNum);
+
+            Map<String,Integer> pointMap =
+                fetchPointMap(entYear, classNum, subjectCd, no, schoolCd);
 
             /* 検索条件と結果を保持 */
             req.setAttribute("students",     students);
@@ -75,15 +89,17 @@ public class TestRegistExecuteAction extends Action {
             req.setAttribute("selSubjectCd", subjectCd);
             req.setAttribute("selNo",        no);
 
-            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+               .forward(req, res);
             return;
         }
 
-        /* ======== 登録モード ======== */
+        /* ---------- 登録モード ---------- */
 
         if (entYear == null || classNum == null || subjectCd == null || no == null) {
             req.setAttribute("error", "検索条件が不足しています");
-            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+            req.getRequestDispatcher("/scoremanager/main/test_regist.jsp")
+               .forward(req, res);
             return;
         }
 
@@ -116,28 +132,16 @@ public class TestRegistExecuteAction extends Action {
             }
         }
 
-        /* 完了メッセージ */
-        req.getRequestDispatcher("test_regist_done.jsp")
-        .forward(req, res);
-
-        /* 検索モードと同じデータを再表示 */
-        StudentDao sDao = new StudentDao();
-        List<Student> students = sDao.filter(schoolCd, entYear, classNum);
-        Map<String,Integer> pointMap = fetchPointMap(entYear, classNum, subjectCd, no, schoolCd);
-
-        req.setAttribute("students",     students);
-        req.setAttribute("pointMap",     pointMap);
-        req.setAttribute("selEntYear",   entYear);
-        req.setAttribute("selClassNum",  classNum);
-        req.setAttribute("selSubjectCd", subjectCd);
-        req.setAttribute("selNo",        no);
-
-        req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+        /* 登録完了メッセージ */
+        req.setAttribute("message",
+            String.format("登録 %d 件、エラー %d 件で完了しました。", success, fail));
+        req.getRequestDispatcher("/scoremanager/main/test_regist_done.jsp")
+           .forward(req, res);
     }
 
-    /*───────────────── ヘルパ ─────────────────*/
+    /* ===== ヘルパ ===== */
 
-    /** 年度・クラス・科目・回数で既存得点を Map 化 */
+    /** 既存得点を Map 化 */
     private Map<String,Integer> fetchPointMap(Integer entYear,
                                               String classNum,
                                               String subjectCd,
@@ -156,8 +160,9 @@ public class TestRegistExecuteAction extends Action {
         return map;
     }
 
-    /** プルダウンリストを生成してリクエストに格納 */
+    /** プルダウンリスト生成 */
     private void buildPulldowns(HttpServletRequest req, String schoolCd) throws Exception {
+
         List<Integer> years = new ArrayList<>();
         int now = Year.now().getValue();
         for (int i = -10; i <= 1; i++) years.add(now + i);

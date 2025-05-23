@@ -58,6 +58,9 @@
 		      <div class="col-auto">
 		        <button type="submit" class="btn btn-secondary">検索</button>
 		      </div>
+		      <c:if test="${not empty errorNo}">
+                <div class="form-text text-warning">${errorNo}</div>
+             </c:if>
 		    </div>
 		  </div>
 		</form>
@@ -78,7 +81,7 @@
 		      <!-- 学生番号 -->
 		      <div class="col-12 col-lg-6">
 		        <label for="studentId" class="form-label fw-bold">学生番号</label>
-		        <input type="text" name="studentId" id="studentId" class="form-control" placeholder="学生番号を入力してください" value="${param.studentId}"/>
+		        <input type="text" name="studentId" id="studentId" class="form-control" placeholder="学生番号を入力してください" required value="${param.studentId}"/>
 		      </div>
 
 		      <!-- 検索ボタン -->
@@ -122,8 +125,13 @@
 
       <!-- データなし -->
       <c:if test="${empty testListStudent}">
+		<c:if test="${not empty student}">
+	      	<div class="mb-3 fw-bold">
+				氏名：${student.name}(${student.no})
+			</div>
+		</c:if>
         <div class="mx-3 mt-4 text-danger fw-bold">
-          該当する成績は見つかりませんでした。
+          成績は見つかりませんでした。
         </div>
       </c:if>
     </section>

@@ -10,42 +10,49 @@ import dao.SubjectDao;
 import tool.Action;
 
 public class SubjectCreateExecuteAction extends Action {
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // ①ログインチェック
-        HttpSession session = request.getSession();
-        Teacher teacher = (Teacher) session.getAttribute("user");
-        if (teacher == null) {
-        	request.getRequestDispatcher("../login.jsp").forward(request, response);
-        	return;
-        }
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    // ①ログインチェック
+	    HttpSession session = request.getSession();
+	    Teacher teacher = (Teacher) session.getAttribute("user");
+	    if (teacher == null) {
+	        request.getRequestDispatcher("../login.jsp").forward(request, response);
+	        return;
+	    }
 
-        // ②パラメータ取得
-        String code = request.getParameter("code");
-        String name = request.getParameter("name");
+	    // ②パラメータ取得
+	    String code = request.getParameter("code");
+	    String name = request.getParameter("name");
 
-        // ③登録処理準備
-        Subject subject = new Subject();
-        subject.setCode(code);
-        subject.setName(name);
-        subject.setSchoolCd(teacher.getSchoolCd());
+	    // ③科目コードが3文字であることを確認
+	    if (code == null || code.length() != 3) {
+	        request.setAttribute("errorNo", "※科目コードは3文字で入力してください。");
+	        request.setAttribute("code", code);
+	        request.setAttribute("name", name);
+	        request.getRequestDispatcher("subject_create.jsp").forward(request, response);
+	        return;
+	    }
 
-        // ④保存処理と例外処理
-        try {
-            SubjectDao dao = new SubjectDao();
-            dao.save(subject);
+	    // ④登録処理準備
+	    Subject subject = new Subject();
+	    subject.setCode(code);
+	    subject.setName(name);
+	    subject.setSchoolCd(teacher.getSchoolCd());
 
-            // ⑤成功時は完了画面へ遷移
-            request.setAttribute("message", "科目の登録が完了しました。");
-            request.getRequestDispatcher("subject_create_done.jsp")
-                   .forward(request, response);
-        } catch (Exception e) {
-            // 重複エラー等の例外時は入力画面へ戻す
-            request.setAttribute("errorNo", "※この科目コードは既に使用されています。");
-            request.setAttribute("code", code);
-            request.setAttribute("name", name);
-            request.getRequestDispatcher("subject_create.jsp")
-                   .forward(request, response);
-        }
-    }
+	    // ⑤保存処理と例外処理
+	    try {
+	        SubjectDao dao = new SubjectDao();
+	        dao.save(subject);
+
+	        // ⑥成功時は完了画面へ遷移
+	        request.setAttribute("message", "科目の登録が完了しました。");
+	        request.getRequestDispatcher("subject_create_done.jsp").forward(request, response);
+	    } catch (Exception e) {
+	        // 重複エラー等の例外時は入力画面へ戻す
+	        request.setAttribute("errorNo", "※この科目コードは既に使用されています。");
+	        request.setAttribute("code", code);
+	        request.setAttribute("name", name);
+	        request.getRequestDispatcher("subject_create.jsp").forward(request, response);
+	    }
+	}
 }

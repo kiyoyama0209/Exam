@@ -32,20 +32,16 @@ public class StudentDao extends Dao {
         return st;
     }
 
-    public int updateClassNum(String oldClassNum,
-            String newClassNum,
-            String schoolCd) throws Exception {
-
-		String sql = "UPDATE STUDENT SET CLASS_NUM = ? " +
-		   "WHERE SCHOOL_CD = ? AND CLASS_NUM = ?";
-		try (Connection con = getConnection();
-		PreparedStatement ps = con.prepareStatement(sql)) {
-		ps.setString(1, newClassNum);
-		ps.setString(2, schoolCd);
-		ps.setString(3, oldClassNum);
-		return ps.executeUpdate();
-		}
-	}
+    public int updateClassNum(String oldClassNum, String newClassNum, String schoolCd) throws Exception {
+        String sql = "UPDATE STUDENT SET CLASS_NUM = ? WHERE SCHOOL_CD = ? AND CLASS_NUM = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, newClassNum);
+            ps.setString(2, schoolCd);
+            ps.setString(3, oldClassNum);
+            return ps.executeUpdate();
+        }
+    }
 
     public List<Student> filterAll(String schoolCd) throws Exception {
         List<Student> list = new ArrayList<>();
@@ -76,7 +72,6 @@ public class StudentDao extends Dao {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, school.getSchoolCd());
             ps.setBoolean(2, isAttend);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -102,7 +97,6 @@ public class StudentDao extends Dao {
             ps.setInt(2, entYear);
             ps.setString(3, classNum);
             ps.setBoolean(4, isAttend);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -127,7 +121,6 @@ public class StudentDao extends Dao {
             ps.setString(1, school.getSchoolCd());
             ps.setInt(2, entYear);
             ps.setBoolean(3, isAttend);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -144,15 +137,15 @@ public class StudentDao extends Dao {
         return list;
     }
 
+    // ✅ 修正: IS_ATTEND を除外
     public List<Student> filter(School school, int entYear, String classNum) throws Exception {
         List<Student> list = new ArrayList<>();
         try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND ENT_YEAR=? AND CLASS_NUM=? AND IS_ATTEND=TRUE ORDER BY NO";
+            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND ENT_YEAR=? AND CLASS_NUM=? ORDER BY NO";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, school.getSchoolCd());
             ps.setInt(2, entYear);
             ps.setString(3, classNum);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -169,14 +162,14 @@ public class StudentDao extends Dao {
         return list;
     }
 
+    // ✅ 修正: IS_ATTEND を除外
     public List<Student> filter(School school, int entYear) throws Exception {
         List<Student> list = new ArrayList<>();
         try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND ENT_YEAR=? AND IS_ATTEND=TRUE ORDER BY NO";
+            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND ENT_YEAR=? ORDER BY NO";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, school.getSchoolCd());
             ps.setInt(2, entYear);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -193,13 +186,13 @@ public class StudentDao extends Dao {
         return list;
     }
 
+    // ✅ 修正: IS_ATTEND を除外
     public List<Student> filter(School school) throws Exception {
         List<Student> list = new ArrayList<>();
         try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND IS_ATTEND=TRUE ORDER BY NO";
+            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=? ORDER BY NO";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, school.getSchoolCd());
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Student st = new Student();
@@ -216,6 +209,7 @@ public class StudentDao extends Dao {
         return list;
     }
 
+    // オーバーロード: 呼び出し用補助メソッド群
     public List<Student> filter(String schoolCd) throws Exception {
         School school = new School();
         school.setSchoolCd(schoolCd);
@@ -283,6 +277,7 @@ public class StudentDao extends Dao {
         }
         return result;
     }
+
     public List<Integer> findDistinctEntYear(String schoolCd) throws Exception {
         List<Integer> list = new ArrayList<>();
         String sql = "SELECT DISTINCT ENT_YEAR FROM STUDENT WHERE SCHOOL_CD = ? ORDER BY ENT_YEAR";
@@ -295,33 +290,9 @@ public class StudentDao extends Dao {
                 list.add(rs.getInt("ENT_YEAR"));
             }
         }
+        return list;
+    }
 
-        return list;
-    }
- // ★ クラスのみで検索する専用のメソッド（安全に追加）
-    public List<Student> filterByClass(String schoolCd, String classNum) throws Exception {
-        List<Student> list = new ArrayList<>();
-        try (Connection con = getConnection()) {
-            String sql = "SELECT * FROM STUDENT WHERE SCHOOL_CD = ? AND CLASS_NUM = ? AND IS_ATTEND = TRUE ORDER BY NO";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, schoolCd);
-            ps.setString(2, classNum);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Student st = new Student();
-                    st.setNo(rs.getString("NO"));
-                    st.setName(rs.getString("NAME"));
-                    st.setEntYear(rs.getInt("ENT_YEAR"));
-                    st.setClassNum(rs.getString("CLASS_NUM"));
-                    st.setAttend(rs.getBoolean("IS_ATTEND"));
-                    st.setSchoolCd(rs.getString("SCHOOL_CD"));
-                    list.add(st);
-                }
-            }
-        }
-        return list;
-    }
- // ★ 在学中指定の有無で切り替える filterByClass（追加）
     public List<Student> filterByClass(String schoolCd, String classNum, Boolean isAttend) throws Exception {
         List<Student> list = new ArrayList<>();
         Connection con = getConnection();
@@ -355,6 +326,4 @@ public class StudentDao extends Dao {
         rs.close(); ps.close(); con.close();
         return list;
     }
-
-
 }

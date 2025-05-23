@@ -13,6 +13,7 @@ import bean.Subject;
 import bean.Teacher;
 import bean.TestListStudent;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestListStudentDao;
 import tool.Action;
@@ -61,15 +62,16 @@ public class TestListStudentExecuteAction extends Action {
         // 学生番号を取得
         String studentNo = request.getParameter("studentId");
 
-        // 入力がない場合は終了
-        if (studentNo == null || studentNo.isEmpty()) {
-            request.setAttribute("message", "学生番号を入力してください。");
-            request.getRequestDispatcher("test_list.jsp").forward(request, response);
-            return;
+        StudentDao studentDao = new StudentDao();
+        Student student = null;
+        try {
+            student = studentDao.get(studentNo);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+
         // 学生Beanの作成
-        Student student = new Student();
         student.setNo(studentNo);
 
         // DAOで検索
@@ -79,6 +81,7 @@ public class TestListStudentExecuteAction extends Action {
         // 結果をリクエストスコープにセット
         request.setAttribute("testListStudent", list);
         request.setAttribute("studentId", studentNo); // 再表示用
+        request.setAttribute("student", student);
 
         // JSPへフォワード
         request.getRequestDispatcher("test_list_student.jsp").forward(request, response);

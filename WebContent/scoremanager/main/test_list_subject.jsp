@@ -96,8 +96,9 @@
       <c:if test="${not empty testListSubject}">
         <div class="mx-3 mt-4">
           <div class="mb-3 fw-bold">
-            科目：情報処理基礎知識Ⅰ
-          </div>
+  科目：<c:out value="${selSubject.name}" />
+</div>
+
           <div class="table-responsive">
 			  <table class="table align-middle text-center border-bottom">
 			    <thead>

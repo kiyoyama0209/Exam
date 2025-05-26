@@ -67,6 +67,9 @@ public class TestListSubjectExecuteAction extends Action {
             String classNum = req.getParameter("classNum");
             String subjectCd = req.getParameter("subjectCd");
 
+            Subject selSubject = subjectDao.get(subjectCd);         // ←★ここを追加
+            req.setAttribute("selSubject", selSubject);
+
 
             // Subject, School オブジェクトの生成
             Subject subject = new Subject();

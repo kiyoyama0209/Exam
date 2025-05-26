@@ -22,8 +22,8 @@ public class SubjectUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-        	req.getRequestDispatcher("../login.jsp").forward(req, res);
-        	return;
+            req.getRequestDispatcher("../login.jsp").forward(req, res);
+            return;
         }
 
         /* ② パラメータ取得 */
@@ -42,22 +42,43 @@ public class SubjectUpdateExecuteAction extends Action {
             Subject backup = new Subject();
             backup.setCode(cd);
             backup.setName(name);
-            backup.setSchoolCd(teacher.getSchoolCd());
+            backup.setSchoolCd(teacher.getSchoolCd()); // Important for re-display consistency
 
             req.setAttribute("subject", backup);
+            // Forward to SubjectUpdate.action which will render the update page
             req.getRequestDispatcher("SubjectUpdate.action").forward(req, res);
             return;
         }
 
         /* ④ 更新処理 */
         SubjectDao dao = new SubjectDao();
-        Subject subject = dao.get(cd);
-        if (subject == null) {
-            res.sendRedirect("SubjectList.action");
+        Subject subjectToUpdate = dao.get(cd); // Try to get the subject from DB
+
+        if (subjectToUpdate == null) {
+            // Subject was not found, likely deleted after the form was loaded.
+            req.setAttribute("errorGeneral", "科目が存在しません");
+
+            // Create a subject bean with the data the user attempted to submit
+            // so the form can be re-populated with their entries.
+            Subject attemptedSubject = new Subject();
+            attemptedSubject.setCode(cd);
+            attemptedSubject.setName(name);
+            attemptedSubject.setSchoolCd(teacher.getSchoolCd());
+
+            req.setAttribute("subject", attemptedSubject); // Pass this back to the form
+
+            // Forward to SubjectUpdate.action, which will display subject_update.jsp
+            // The 'subject' and 'errorGeneral' attributes will be available.
+            req.getRequestDispatcher("SubjectUpdate.action").forward(req, res);
             return;
         }
-        subject.setName(name);
-        dao.update(subject);
+
+        // If subject exists, proceed with update
+        subjectToUpdate.setName(name);
+        // The schoolCd of the subjectToUpdate should already be correct from the DB
+        // subjectToUpdate.setSchoolCd(teacher.getSchoolCd()); // Usually not changed here
+
+        dao.update(subjectToUpdate);
 
         /* ⑤ 完了画面へ */
         req.setAttribute("message", "科目情報の変更が完了しました");

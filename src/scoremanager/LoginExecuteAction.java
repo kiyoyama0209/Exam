@@ -19,7 +19,7 @@ public class LoginExecuteAction extends Action {
         // 未入力チェック
         if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("error", "このフィールドを入力してください");
-            request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
@@ -31,7 +31,7 @@ public class LoginExecuteAction extends Action {
             // エラー処理
             request.setAttribute("error", "IDまたはパスワードが確認できませんでした");
             request.setAttribute("id", id);
-            request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 

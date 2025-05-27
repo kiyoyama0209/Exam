@@ -14,7 +14,7 @@
         <div class="mb-3">
           <label class="form-label fw-bold">科目コード</label>
           <div class="input-group">
-            <input type="text" name="code" class="form-control" required
+            <input type="text" name="code" class="form-control"placeholder="科目コードを入力してください" required
                    value="${code}">
           </div>
           <c:if test="${not empty errorNo}">
@@ -26,7 +26,7 @@
         <div class="mb-3">
           <label class="form-label fw-bold">科目名</label>
           <div class="input-group">
-            <input type="text" name="name" class="form-control" required
+            <input type="text" name="name" class="form-control" placeholder="科目名を入力してください" required
                    value="${name}">
           </div>
           <c:if test="${not empty errorName}">
@@ -34,10 +34,8 @@
           </c:if>
         </div>
 
-        <!-- ボタン -->
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary px-5">登録して保存</button>
-        </div>
+
+          <button type="submit" class="btn btn-primary">変更</button>
       </form>
 
       <!-- 戻るリンク -->

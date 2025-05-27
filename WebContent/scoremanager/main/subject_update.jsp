@@ -6,14 +6,11 @@
   <c:param name="scripts"></c:param>
   <c:param name="content">
     <section class="container mt-5">
-      <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">
-        科目情報変更
-      </h2>
+      <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">科目情報変更</h2>
 
-      <form action="SubjectUpdateExecute.action"
-            method="post"
-            class="px-4">
+      <form action="SubjectUpdateExecute.action" method="post" class="px-4">
 
+		<!-- 科目コード -->
         <div class="mb-3">
           <label class="form-label fw-bold">科目コード</label>
           <p class="form-control-plaintext ps-0 mb-0"><c:out value="${subject.cd}"/></p>
@@ -27,16 +24,11 @@
           </div>
         </c:if>
         <div class="mb-3">
-          <label class="form-label fw-bold" for="subjectNameInput">科目名</label>
-          <input type="text"
-                 id="subjectNameInput"
-                 name="name"
-                 class="form-control"
-                 value="<c:out value="${subject.name}"/>"
-                 maxlength="60"
-                 required>
+          <label class="form-label fw-bold" >科目名</label>
+          <input type="text" name="name" class="form-control" placeholder="科目名を入力してください"
+                 value="<c:out value="${subject.name}"/>" maxlength="60" required>
           <c:if test="${not empty errorName}">
-            <div class="form-text text-warning mt-1"><c:out value="${errorName}"/></div>
+            <div class="form-text text-warning"><c:out value="${errorName}"/></div>
           </c:if>
         </div>
 

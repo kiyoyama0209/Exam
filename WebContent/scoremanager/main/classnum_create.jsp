@@ -11,8 +11,21 @@
       <form action="ClassNumCreateExecute.action" method="post" class="px-4">
         <div class="mb-3">
           <label for="classNum" class="form-label fw-bold">クラス番号</label>
-          <input type="text" name="classNum" id="classNum" class="form-control w-25" required>
+
+          <!-- 入力ボックス：重複時にも値を残す -->
+          <input type="text"
+                 name="classNum"
+                 id="classNum"
+                 class="form-control w-25"
+                 value="${classNum.classNum}"
+                 required>
+
+          <!-- ★ 追加：エラーメッセージ -->
+          <c:if test="${not empty errorClassNum}">
+            <div class="form-text text-warning">${errorClassNum}</div>
+          </c:if>
         </div>
+
         <button type="submit" class="btn btn-primary">登録</button>
       </form>
     </section>

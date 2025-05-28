@@ -9,6 +9,7 @@ import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
 
+/** クラス番号新規登録 実行 (CLSN002 → CLSN003) */
 public class ClassNumCreateExecuteAction extends Action {
 
     @Override
@@ -33,6 +34,12 @@ public class ClassNumCreateExecuteAction extends Action {
         if (classNumStr == null || classNumStr.trim().isEmpty()) {
             request.setAttribute("errorClassNum", "クラス番号を入力してください");
             hasErr = true;
+
+        // ★ 追加：半角数字のみ許可
+        } else if (!classNumStr.matches("\\d+")) {
+            request.setAttribute("errorClassNum", "クラス番号は半角数字のみで入力してください");
+            hasErr = true;
+
         } else if (dao.get(classNumStr, teacher.getSchoolCd()) != null) {
             request.setAttribute("errorClassNum", "そのクラス番号は既に存在します");
             hasErr = true;
@@ -45,7 +52,8 @@ public class ClassNumCreateExecuteAction extends Action {
             backup.setSchoolCd(teacher.getSchoolCd());
             request.setAttribute("classNum", backup);
 
-            request.getRequestDispatcher("ClassNumCreate.action")
+            // 直接 JSP へフォワード（Action 経由ではなく）
+            request.getRequestDispatcher("classnum_create.jsp")
                    .forward(request, response);
             return;
         }

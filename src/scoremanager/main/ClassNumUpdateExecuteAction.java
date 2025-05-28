@@ -19,8 +19,8 @@ public class ClassNumUpdateExecuteAction extends Action {
         HttpSession ses = req.getSession();
         Teacher teacher = (Teacher) ses.getAttribute("user");
         if (teacher == null) {
-        	req.getRequestDispatcher("../login.jsp").forward(req, res);
-        	return;
+            req.getRequestDispatcher("../login.jsp").forward(req, res);
+            return;
         }
 
         /* ② パラメータ取得 */
@@ -33,6 +33,11 @@ public class ClassNumUpdateExecuteAction extends Action {
         if (newClassNum == null || newClassNum.trim().isEmpty()) {
             req.setAttribute("errorClassNum", "クラス番号を入力してください");
             hasErr = true;
+
+        // ★ 追加: 半角数字のみ許可
+        } else if (!newClassNum.matches("\\d+")) {
+            req.setAttribute("errorClassNum", "クラス番号は半角数字のみで入力してください");
+            hasErr = true;
         }
 
         ClassNumDao cDao = new ClassNumDao();
@@ -42,10 +47,18 @@ public class ClassNumUpdateExecuteAction extends Action {
         }
 
         if (hasErr) {
-            req.getRequestDispatcher("ClassNumUpdate.action")
+            /* いま入力された値を保持させる ------------------- */
+            req.setAttribute("inputClassNum", newClassNum);
+
+            req.setAttribute("classNum",
+                cDao.get(oldClassNum, schoolCd));
+
+            // 直接 JSP へフォワード
+            req.getRequestDispatcher("classnum_update.jsp")
                .forward(req, res);
             return;
         }
+
 
         /* ④ クラス番号テーブル更新 */
         cDao.update(oldClassNum, newClassNum, schoolCd);
